@@ -25,6 +25,10 @@ body {
     position: absolute;
     opacity: 1;
 }
+#tmp_canvas {
+    position: absolute;
+    opacity: 0;
+}
 .magictime {
     position: absolute;
     border-radius: 50%;
