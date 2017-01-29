@@ -48,17 +48,17 @@ window.onload = function() {
     var chartElm = document.getElementById('curve_chart');
     var chart = new google.visualization.LineChart(chartElm);
 
-    var timeSeriesData = [];
-    function drawChart(timeSeriesData) {
+    var tsData = [];
+    function drawChart(tsData) {
         if (chart) {
             if (!vData) {
-                dataWithTitle = [['time', 'diff', 'Yeah']].concat(timeSeriesData);
+                dataWithTitle = [['time', 'diff', 'Yeah']].concat(tsData);
                 vData = google.visualization.arrayToDataTable(dataWithTitle);
             } else {
                 if (vData.getNumberOfRows() >= 101) {
                     vData.removeRow(0);
                 }
-                vData.addRow(timeSeriesData[timeSeriesData.length - 1]);
+                vData.addRow(tsData[tsData.length - 1]);
             }
             chart.draw(vData, chartOptions);
         }
@@ -117,13 +117,11 @@ window.onload = function() {
             for (i = 0; i < corners.length; i += 2) {
                 context.fillStyle = '#f00';
                 context.fillRect(corners[i] * (1/scale), corners[i + 1] * (1/scale), 4, 4);
-    //            tmpCtx.fillStyle = '#f00';
-    //            tmpCtx.fillRect(corners[i], corners[i + 1], 3, 3);
             }
         }
 
         descriptors = tracking.Brief.getDescriptors(gray, width, corners);
-        if (lastDescriptors && lastCorners) {
+        if (corners.length > 0 && lastDescriptors && lastCorners) {
             matches = tracking.Brief.match(lastCorners, lastDescriptors, corners, descriptors);
             if (datParam.showCapturePanel) {
                 for (i = 0; i < matches.length; i += 2) {
@@ -134,21 +132,25 @@ window.onload = function() {
 
             // 双方向のマッチ処理: 負荷が高いので一時カット
             // matches = tracking.Brief.reciprocalMatch(lastCorners, lastDescriptors, corners, descriptors);
-            diff = corners.length - matches.length;
-            len = timeSeriesData.length;
-            if (len >= 3) {
-                yeah = (diff * 2 + timeSeriesData[len-1][1] + timeSeriesData[len-2][1] + timeSeriesData[len-3][1]) / 4;
+            diff = (1 - Math.min(1, matches.length / corners.length)) * 100;
+            len = tsData.length;
+            if (len >= 2) {
+                yeah = (Math.abs(diff - tsData[len-1][1]) * 2
+                    + Math.abs(tsData[len-1][1] - tsData[len-2][1])) / 3;
+//                yeah = (Math.abs(diff - tsData[len-1][1]) * 2
+//                    + Math.abs(tsData[len-1][1] - tsData[len-2][1])
+//                    + Math.abs(tsData[len-2][1] - tsData[len-3][1])) / 4;
                 if (doFindCnt > 3) {
                     addEffect(yeah);
                 }
             } else {
                 yeah = 0;
             }
-            timeSeriesData.push([now - startTime, diff, yeah]);
+            tsData.push([now - startTime, diff, yeah]);
             if (len > 99) {
-                timeSeriesData = timeSeriesData.slice(len - 99);
+                tsData = tsData.slice(len - 99);
             }
-            drawChart(timeSeriesData);
+            drawChart(tsData);
         }
 
         lastDescriptors = descriptors;
@@ -170,7 +172,7 @@ window.onload = function() {
     }, captureInterval);
 
     var DatParam = function() {
-        this.sensitivity = 50;
+        this.sensitivity = 60;
         this.autoAdjust = true;
         this.showCapturePanel = false;
         this.playCamera = function() {
@@ -210,8 +212,7 @@ window.onload = function() {
         value = Math.floor(value);
         var innerMagicLayer = document.createElement('div');
         innerMagicLayer.classList.add('inner-magic-layer');
-        cnt = Math.floor(value / 25);
-//        console.log(cnt);
+        cnt = Math.floor(value / 5);
         if (cnt == 0) {
             return;
         } else if (cnt < 5) {
