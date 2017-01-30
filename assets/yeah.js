@@ -26,18 +26,18 @@ function DatParam() {
     this.sensitivity = 60;
     this.autoAdjust = true;
     this.showCapturePanel = false;
-    this.playCamera = function() {
+    this.captureCamera = function() {
         videoElm.controls = false;
         turnOnVideo();
     };
-    this.playDance = function() {
+    this.captureDanceMovie = function() {
         videoElm.controls = true;
         videoElm.src = "./assets/kazuhiro.mp4";
         initCanvasByVideo();
 
         myStream.getTracks()[0].stop();
     };
-    this.playGame = function() {
+    this.captureGameMovie = function() {
         videoElm.controls = true;
         videoElm.src = "./assets/umehara.mp4";
         initCanvasByVideo();
@@ -76,18 +76,12 @@ window.onload = function() {
 
     magicLayer = document.getElementById('magic-layer');
 
-    // fadeIn
-    var demoContainer = document.getElementById('demo-container');
-    setTimeout(function() {
-        demoContainer.style.opacity = 1;
-    }, 1000);
-
     turnOnVideo();
     initDatGUI();
 
     setInterval(function() {
         if (!isVideoStopped) {
-            ctx.drawImage(videoElm, 0, 0);
+            ctx.drawImage(videoElm, 0, 0, videoElm.clientWidth, videoElm.clientHeight);
             tmpCtx.drawImage(videoElm, 0, 0, tmpCanvas.width, tmpCanvas.height);
             // make delay to save some CPU usage. (I hope)
             setTimeout(function() {
@@ -207,27 +201,7 @@ function findFeatures(context) {
             addEffect(yeah);
         }
         tsData.push([now - startTime, diff, yeah]);
-        if (len > 59) {
-            tsData = tsData.slice(len - 59);
-        }
         drawChart(tsData);
-
-//
-//        len = tsData.length;
-//        if (len >= 2) {
-//            yeah = (Math.abs(diff - tsData[len-1][1]) * 2
-//                + Math.abs(tsData[len-1][1] - tsData[len-2][1])) / 3;
-//            if (doFindCnt > 3) {
-//                addEffect(yeah);
-//            }
-//        } else {
-//            yeah = 0;
-//        }
-//        tsData.push([now - startTime, diff, yeah]);
-//        if (len > 59) {
-//            tsData = tsData.slice(len - 59);
-//        }
-//        drawChart(tsData);
     }
 
     lastDescriptors = descriptors;
@@ -251,7 +225,7 @@ function drawChart(tsData) {
             dataWithTitle = [['time', 'diff', 'Yeah']].concat(tsData);
             vData = google.visualization.arrayToDataTable(dataWithTitle);
         } else {
-            if (vData.getNumberOfRows() >= 61) {
+            if (vData.getNumberOfRows() >= 60) {
                 vData.removeRow(0);
             }
             vData.addRow(tsData[tsData.length - 1]);
@@ -290,7 +264,7 @@ function initCanvasByVideo(delay) {
         scale = getScale(canvas.height);
         tmpCanvas.width = canvas.width * scale;
         tmpCanvas.height = canvas.height * scale;
-        videoElm.style.opacity = 1;
+        videoElm.style.opacity = 0.5;
         canvas.style.opacity = 1;
     }, delay);
 };
@@ -306,9 +280,9 @@ function initDatGUI() {
             videoElm.style.opacity = 1;
         }
     });
-    gui.add(datParam, 'playCamera');
-    gui.add(datParam, 'playDance');
-    gui.add(datParam, 'playGame');
+    gui.add(datParam, 'captureCamera');
+    gui.add(datParam, 'captureDanceMovie');
+    gui.add(datParam, 'captureGameMovie');
 };
 
 

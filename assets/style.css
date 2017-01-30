@@ -24,9 +24,9 @@ body {
     position:relative;
     text-align: center;
     opacity: 0;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    transition: all 0.5s;
+    -webkit-animation: fadeIn 1.5s linear 1s forwards;
+    -moz-animation: fadeIn 1.5s linear 1s forwards;
+    animation: fadeIn 1.5s linear 1s forwards;
 }
 #curve_chart {
     width: 800px;
@@ -39,6 +39,8 @@ body {
 #video {
     position: absolute;
     opacity: 1;
+    width: auto;
+    height: 400px;
 }
 #tmp_canvas {
     position: absolute;
@@ -120,6 +122,18 @@ a {
   animation: none;
 }
 
+@-webkit-keyframes fadeIn {
+    0%   {opacity: 0}
+    100% {opacity: 1}
+}
+@-moz-keyframes fadeIn {
+    0%   {opacity: 0}
+    100% {opacity: 1}
+}
+@keyframes fadeIn {
+    0%   {opacity: 0}
+    100% {opacity: 1}
+}
 @-webkit-keyframes neon1 {
   from {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF1177, 0 0 70px #FF1177, 0 0 80px #FF1177, 0 0 100px #FF1177, 0 0 150px #FF1177;
