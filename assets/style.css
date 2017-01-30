@@ -41,6 +41,7 @@ body {
     opacity: 1;
     width: auto;
     height: 400px;
+    will-change: opacity;
 }
 #tmp_canvas {
     position: absolute;
@@ -51,6 +52,12 @@ body {
     border-radius: 50%;
     background-color: silver;
     opacity: 0;
+    will-change: opacity, transform, filter;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
 }
 .magictime.sm {
     width: 10px;
