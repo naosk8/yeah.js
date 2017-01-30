@@ -29,7 +29,7 @@ function DatParam() {
     };
 };
 var datParam = new DatParam();
-var i, z, y, height, width, imageData, gray, myStream, vData, yeah, tsDataSize, scale, scaleInverse,
+var i, z, y, imageData, gray, myStream, vData, yeah, tsDataSize, scale, scaleInverse,
     matches, corners, descriptors, lastCorners, lastDescriptors, cornersSize, matchesSize,
     startTime, now, diff, videoElm, gui, canvas, ctx, chart, magicLayer;
 var captureInterval = 1000, isVideoStopped = false, baseHeight = 128, doFindCnt = 0;
@@ -44,8 +44,6 @@ innerMagicLayerTpl.classList.add('inner-magic-layer');
 var bTpl = document.createElement('b');
 bTpl.classList.add('magictime');
 var cnt, particleSize, delay, index, color;
-
-google.charts.load('current', {'packages':['corechart']});
 
 window.onload = function() {
     fixViewportHeight();
@@ -81,7 +79,6 @@ function initChart() {
         zoomEnabled: false,
         axisX: {
             includeZero: false,
-            minimum: 0,
             interval: 10
         },
         axisY: {
@@ -201,8 +198,6 @@ function findFeatures(context) {
         startTime = now;
     }
 
-    height = context.canvas.height;
-    width = context.canvas.width;
     tracking.Fast.THRESHOLD = 100 - datParam.sensitivity;
     imageData = getScaledImageData();
     gray = tracking.Image.grayscale(imageData.data, imageData.width, imageData.height);
@@ -212,7 +207,7 @@ function findFeatures(context) {
     autoAdjustSensitivity(datParam, cornersSize);
 
     matches = [], matchesSize = 0;
-    descriptors = tracking.Brief.getDescriptors(gray, width, corners);
+    descriptors = tracking.Brief.getDescriptors(gray, imageData.width, corners);
     if (cornersSize > 0 && lastDescriptors && lastCorners) {
         // 双方向のマッチ処理: 負荷が高いので一時カット
         // matches = tracking.Brief.reciprocalMatch(lastCorners, lastDescriptors, corners, descriptors);
