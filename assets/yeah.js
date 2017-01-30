@@ -22,14 +22,253 @@ var chartOptions = {
         minValue: 0
     }
 };
+function DatParam() {
+    this.sensitivity = 60;
+    this.autoAdjust = true;
+    this.showCapturePanel = false;
+    this.playCamera = function() {
+        videoElm.controls = false;
+        turnOnVideo();
+    };
+    this.playDance = function() {
+        videoElm.controls = true;
+        videoElm.src = "./assets/kazuhiro.mp4";
+        initCanvasByVideo();
 
-var isVideoStopped = false;
+        myStream.getTracks()[0].stop();
+    };
+    this.playGame = function() {
+        videoElm.controls = true;
+        videoElm.src = "./assets/umehara.mp4";
+        initCanvasByVideo();
+
+        myStream.getTracks()[0].stop();
+    };
+};
+var datParam = new DatParam();
+var i, z, y, height, width, imageData, gray, myStream, dataWithTitle, vData, yeah, len, scale,
+    matches, lastCorners, lastDescriptors, corners, descriptors, startTime, now, diff, videoElm, gui, canvas, ctx,
+    chartElm, chart, magicLayer;
+var isVideoStopped = false, baseHeight = 128, doFindCnt = 0, tsData = [];
+var tmpCanvas = document.createElement('canvas');
+var tmpCtx = tmpCanvas.getContext('2d');
+
+var colorList = ['pink', 'blue', 'yellow', 'green', 'orange', 'violet'];
+var colorListLen = colorList.length;
+var innerMagicLayerTpl = document.createElement('div');
+innerMagicLayerTpl.classList.add('inner-magic-layer');
+var bTpl = document.createElement('b');
+bTpl.classList.add('magictime');
+var cnt, particleSize, delay, index, color;
+
 google.charts.load('current', {'packages':['corechart']});
+
 window.onload = function() {
     fixViewportHeight();
-    var i, height, width, imageData, gray, myStream, dataWithTitle, vData, yeah, len,
-        matches, lastCorners, lastDescriptors, corners, descriptors, startTime, now, diff;
-    var videoElm = document.getElementById('video');
+    videoElm = document.getElementById('video');
+    setVideoEventListener(videoElm);
+
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+
+    chartElm = document.getElementById('curve_chart');
+    chart = new google.visualization.LineChart(chartElm);
+
+    magicLayer = document.getElementById('magic-layer');
+
+    // fadeIn
+    var demoContainer = document.getElementById('demo-container');
+    setTimeout(function() {
+        demoContainer.style.opacity = 1;
+    }, 1000);
+
+    turnOnVideo();
+    initDatGUI();
+
+    setInterval(function() {
+        if (!isVideoStopped) {
+            ctx.drawImage(videoElm, 0, 0);
+            tmpCtx.drawImage(videoElm, 0, 0, tmpCanvas.width, tmpCanvas.height);
+            // make delay to save some CPU usage. (I hope)
+            setTimeout(function() {
+                findFeatures(ctx);
+            }, 100);
+        }
+    }, captureInterval);
+
+}
+
+function turnOnVideo() {
+    navigator.getUserMedia({audio: false, video: videoConstraints}, function(stream){
+        myStream = stream;
+        videoElm.src = URL.createObjectURL(myStream);
+        initCanvasByVideo();
+    }, function() {});
+};
+
+function addEffect(value) {
+    value = Math.floor(value);
+    var fragment = document.createDocumentFragment();
+    var innerMagicLayer = innerMagicLayerTpl.cloneNode();
+    cnt = Math.floor(value / 5);
+    if (cnt == 0) {
+        return;
+    } else if (cnt < 5) {
+        particleSize = 'sm';
+    } else if (cnt < 10) {
+        particleSize = 'md';
+    } else {
+        particleSize = 'lg';
+    }
+    cnt = (cnt > 12) ? 12 : cnt;
+
+    b = bTpl.cloneNode();
+    b.classList.add(particleSize);
+    var bList = [], index = 0;
+    for (z = 0; z < cnt; z++) {
+        bClone = b.cloneNode();
+        bClone.style.top = Math.floor(Math.random() * deviceHeight) + "px";
+        bClone.style.left = Math.floor(Math.random() * deviceWidth) + "px";
+        color = colorList[(value + z) % colorListLen];
+        bClone.classList.add(color);
+        fragment.appendChild(bClone);
+        bList.push(bClone);
+        delay = captureInterval / cnt * z;
+        setTimeout(function() {
+            bList[index].classList.add('puffInOut');
+            index++;
+        }, delay);
+    }
+    innerMagicLayer.appendChild(fragment);
+    magicLayer.appendChild(innerMagicLayer);
+    setTimeout(function() {
+        innerMagicLayer.parentNode.removeChild(innerMagicLayer);
+    }, captureInterval * 2);
+};
+
+function findFeatures(context) {
+    if (isVideoStopped) {
+        doFindCnt = 0;
+        lastCorners = void 0;
+        lastDescriptors = void 0;
+        return;
+    }
+    doFindCnt++;
+    now = Math.round((new Date()).getTime() / 1000);
+    if (!startTime) {
+        startTime = now;
+    }
+
+    height = context.canvas.height;
+    width = context.canvas.width;
+    tracking.Fast.THRESHOLD = 100 - datParam.sensitivity;
+    imageData = getScaledImageData();
+    gray = tracking.Image.grayscale(imageData.data, imageData.width, imageData.height);
+    corners = tracking.Fast.findCorners(gray, imageData.width, imageData.height);
+
+    if (datParam.autoAdjust) {
+        if (corners.length > 400 && datParam.sensitivity > 0) {
+            datParam.sensitivity -= Math.max(2, Math.ceil((corners.length - 400) / 500));
+            datParam.sensitivity = Math.max(0, datParam.sensitivity);
+            for (var i in gui.__controllers) {
+                gui.__controllers[i].updateDisplay();
+            }
+        } else if (corners.length < 250 && datParam.sensitivity < 100) {
+            datParam.sensitivity += Math.max(2, Math.ceil((250 - corners.length) / 100));
+            datParam.sensitivity = Math.min(100, datParam.sensitivity);
+            for (var i in gui.__controllers) {
+                gui.__controllers[i].updateDisplay();
+            }
+        }
+    }
+
+    if (datParam.showCapturePanel) {
+        for (i = 0; i < corners.length; i += 2) {
+            context.fillStyle = '#f00';
+            context.fillRect(corners[i] * (1/scale), corners[i + 1] * (1/scale), 4, 4);
+        }
+    }
+
+    descriptors = tracking.Brief.getDescriptors(gray, width, corners);
+    if (corners.length > 0 && lastDescriptors && lastCorners) {
+        matches = tracking.Brief.match(lastCorners, lastDescriptors, corners, descriptors);
+        if (datParam.showCapturePanel) {
+            for (i = 0; i < matches.length; i += 2) {
+                context.fillStyle = '#0f0';
+                context.fillRect(matches[i].keypoint1[0] * (1/scale), matches[i].keypoint1[1] * (1/scale), 4, 4);
+            }
+        }
+
+        // 双方向のマッチ処理: 負荷が高いので一時カット
+        // matches = tracking.Brief.reciprocalMatch(lastCorners, lastDescriptors, corners, descriptors);
+        diff = (1 - Math.min(1, matches.length / corners.length)) * 100;
+        yeah = calcYeah(diff, tsData);
+        if (doFindCnt > 3) {
+            addEffect(yeah);
+        }
+        tsData.push([now - startTime, diff, yeah]);
+        if (len > 59) {
+            tsData = tsData.slice(len - 59);
+        }
+        drawChart(tsData);
+
+//
+//        len = tsData.length;
+//        if (len >= 2) {
+//            yeah = (Math.abs(diff - tsData[len-1][1]) * 2
+//                + Math.abs(tsData[len-1][1] - tsData[len-2][1])) / 3;
+//            if (doFindCnt > 3) {
+//                addEffect(yeah);
+//            }
+//        } else {
+//            yeah = 0;
+//        }
+//        tsData.push([now - startTime, diff, yeah]);
+//        if (len > 59) {
+//            tsData = tsData.slice(len - 59);
+//        }
+//        drawChart(tsData);
+    }
+
+    lastDescriptors = descriptors;
+    lastCorners = corners;
+};
+
+function calcYeah(currentValue, tsData) {
+    len = tsData.length;
+    if (len >= 2) {
+        yeah = (Math.abs(currentValue - tsData[len-1][1]) * 2
+            + Math.abs(tsData[len-1][1] - tsData[len-2][1])) / 3;
+    } else {
+        yeah = 0;
+    }
+    return yeah;
+}
+
+function drawChart(tsData) {
+    if (chart) {
+        if (!vData) {
+            dataWithTitle = [['time', 'diff', 'Yeah']].concat(tsData);
+            vData = google.visualization.arrayToDataTable(dataWithTitle);
+        } else {
+            if (vData.getNumberOfRows() >= 61) {
+                vData.removeRow(0);
+            }
+            vData.addRow(tsData[tsData.length - 1]);
+        }
+        chart.draw(vData, chartOptions);
+    }
+}
+
+function getScaledImageData() {
+    return tmpCtx.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height);
+};
+
+function getScale(height) {
+    return baseHeight / height;
+}
+
+function setVideoEventListener(videoElm) {
     videoElm.addEventListener('play', function() {
         isVideoStopped = false;
     }, false);
@@ -39,160 +278,26 @@ window.onload = function() {
     videoElm.addEventListener('pause', function() {
         isVideoStopped = true;
     }, false);
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
-    var tmpCanvas = document.getElementById('tmp_canvas');
-    var tmpCtx = tmpCanvas.getContext('2d');
-    var tmpImageObject = new Image();
+}
 
-    var chartElm = document.getElementById('curve_chart');
-    var chart = new google.visualization.LineChart(chartElm);
+function initCanvasByVideo(delay) {
+    delay = (delay == void 0) ? 1000 : delay;
+    videoElm.style.opacity = 0;
+    canvas.style.opacity = 0;
+    setTimeout(function() {
+        canvas.width = videoElm.clientWidth;
+        canvas.height = videoElm.clientHeight;
+        scale = getScale(canvas.height);
+        tmpCanvas.width = canvas.width * scale;
+        tmpCanvas.height = canvas.height * scale;
+        videoElm.style.opacity = 1;
+        canvas.style.opacity = 1;
+    }, delay);
+};
 
-    var tsData = [];
-    function drawChart(tsData) {
-        if (chart) {
-            if (!vData) {
-                dataWithTitle = [['time', 'diff', 'Yeah']].concat(tsData);
-                vData = google.visualization.arrayToDataTable(dataWithTitle);
-            } else {
-                if (vData.getNumberOfRows() >= 101) {
-                    vData.removeRow(0);
-                }
-                vData.addRow(tsData[tsData.length - 1]);
-            }
-            chart.draw(vData, chartOptions);
-        }
-    }
-
-    var getScaledImageData = function(context, scale) {
-        imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
-        tmpImageObject.src = context.canvas.toDataURL();
-        tmpCanvas.width = context.canvas.width * scale;
-        tmpCanvas.height = context.canvas.height * scale;
-        tmpCtx.scale(1, 1);
-        tmpCtx.drawImage(tmpImageObject, 0, 0, tmpCanvas.width, tmpCanvas.height);
-        imageData = tmpCtx.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height);
-        return imageData;
-    };
-
-    var scale, baseHeight = 128, doFindCnt = 0;
-    var doFindFeatures = function(context) {
-        if (isVideoStopped) {
-            doFindCnt = 0;
-            lastCorners = void 0;
-            lastDescriptors = void 0;
-            return;
-        }
-        doFindCnt++;
-        now = Math.round((new Date()).getTime() / 1000);
-        if (!startTime) {
-            startTime = now;
-        }
-
-        height = context.canvas.height;
-        width = context.canvas.width;
-        tracking.Fast.THRESHOLD = 100 - datParam.sensitivity;
-        scale = (baseHeight / height);
-        imageData = getScaledImageData(context, scale);
-        gray = tracking.Image.grayscale(imageData.data, tmpCanvas.width, tmpCanvas.height);
-        corners = tracking.Fast.findCorners(gray, tmpCanvas.width, tmpCanvas.height);
-
-        if (datParam.autoAdjust) {
-            if (corners.length > 400 && datParam.sensitivity > 0) {
-                datParam.sensitivity -= Math.max(2, Math.ceil((corners.length - 400) / 500));
-                datParam.sensitivity = Math.max(0, datParam.sensitivity);
-                for (var i in gui.__controllers) {
-                    gui.__controllers[i].updateDisplay();
-                }
-            } else if (corners.length < 250 && datParam.sensitivity < 100) {
-                datParam.sensitivity += Math.max(2, Math.ceil((250 - corners.length) / 100));
-                datParam.sensitivity = Math.min(100, datParam.sensitivity);
-                for (var i in gui.__controllers) {
-                    gui.__controllers[i].updateDisplay();
-                }
-            }
-        }
-
-        if (datParam.showCapturePanel) {
-            for (i = 0; i < corners.length; i += 2) {
-                context.fillStyle = '#f00';
-                context.fillRect(corners[i] * (1/scale), corners[i + 1] * (1/scale), 4, 4);
-            }
-        }
-
-        descriptors = tracking.Brief.getDescriptors(gray, width, corners);
-        if (corners.length > 0 && lastDescriptors && lastCorners) {
-            matches = tracking.Brief.match(lastCorners, lastDescriptors, corners, descriptors);
-            if (datParam.showCapturePanel) {
-                for (i = 0; i < matches.length; i += 2) {
-                    context.fillStyle = '#0f0';
-                    context.fillRect(matches[i].keypoint1[0] * (1/scale), matches[i].keypoint1[1] * (1/scale), 4, 4);
-                }
-            }
-
-            // 双方向のマッチ処理: 負荷が高いので一時カット
-            // matches = tracking.Brief.reciprocalMatch(lastCorners, lastDescriptors, corners, descriptors);
-            diff = (1 - Math.min(1, matches.length / corners.length)) * 100;
-            len = tsData.length;
-            if (len >= 2) {
-                yeah = (Math.abs(diff - tsData[len-1][1]) * 2
-                    + Math.abs(tsData[len-1][1] - tsData[len-2][1])) / 3;
-//                yeah = (Math.abs(diff - tsData[len-1][1]) * 2
-//                    + Math.abs(tsData[len-1][1] - tsData[len-2][1])
-//                    + Math.abs(tsData[len-2][1] - tsData[len-3][1])) / 4;
-                if (doFindCnt > 3) {
-                    addEffect(yeah);
-                }
-            } else {
-                yeah = 0;
-            }
-            tsData.push([now - startTime, diff, yeah]);
-            if (len > 99) {
-                tsData = tsData.slice(len - 99);
-            }
-            drawChart(tsData);
-        }
-
-        lastDescriptors = descriptors;
-        lastCorners = corners;
-    };
-
-    navigator.getUserMedia({audio: false, video: videoConstraints}, function(stream){
-        myStream = stream;
-        videoElm.src = URL.createObjectURL(myStream);
-    }, function(){});
-
-    setInterval(function() {
-        if (myStream) {
-            canvas.width = videoElm.clientWidth;
-            canvas.height = videoElm.clientHeight;
-            ctx.drawImage(videoElm, 0, 0);
-            doFindFeatures(ctx);
-        }
-    }, captureInterval);
-
-    var DatParam = function() {
-        this.sensitivity = 60;
-        this.autoAdjust = true;
-        this.showCapturePanel = false;
-        this.playCamera = function() {
-            videoElm.controls = false;
-            videoElm.src = URL.createObjectURL(myStream);
-        };
-        this.playDance = function() {
-            videoElm.controls = true;
-            videoElm.src = "./assets/kazuhiro.mp4";
-        };
-        this.playGame = function() {
-            videoElm.controls = true;
-            videoElm.src = "./assets/umehara.mp4";
-        };
-    };
-    var gui = new dat.GUI();
-    var datParam = new DatParam();
-    gui.add(datParam, 'sensitivity', 0, 100).onChange(function() {
-        doFindFeatures(ctx);
-    });
+function initDatGUI() {
+    gui = new dat.GUI();
+    gui.add(datParam, 'sensitivity', 0, 100);
     gui.add(datParam, 'autoAdjust');
     gui.add(datParam, 'showCapturePanel').onChange(function() {
         if (datParam.showCapturePanel) {
@@ -204,56 +309,10 @@ window.onload = function() {
     gui.add(datParam, 'playCamera');
     gui.add(datParam, 'playDance');
     gui.add(datParam, 'playGame');
+};
 
-    var colorList = ['pink', 'blue', 'yellow', 'green', 'orange', 'violet'];
-    var magicLayer = document.getElementById('magic-layer');
-    var z, cnt, particleSize, delay, index, color;
-    function addEffect(value) {
-        value = Math.floor(value);
-        var innerMagicLayer = document.createElement('div');
-        innerMagicLayer.classList.add('inner-magic-layer');
-        cnt = Math.floor(value / 5);
-        if (cnt == 0) {
-            return;
-        } else if (cnt < 5) {
-            particleSize = 'sm';
-        } else if (cnt < 10) {
-            particleSize = 'md';
-        } else {
-            particleSize = 'lg';
-        }
-        cnt = (cnt > 12) ? 12 : cnt;
 
-        var b = document.createElement('b');
-        b.classList.add(particleSize);
-        b.classList.add('magictime');
-        for (z = 0; z < cnt; z++) {
-            delay = captureInterval / cnt * z;
-            index = 0;
-            setTimeout(function() {
-                bClone = b.cloneNode();
-                bClone.style.top = Math.floor(Math.random() * deviceHeight) + "px";
-                bClone.style.left = Math.floor(Math.random() * deviceWidth) + "px";
-                color = colorList[(value+index++) % 6];
-                bClone.classList.add(color);
-                bClone.classList.add('puffIn');
-                bClone.addEventListener('webkitAnimationEnd', function(e) {
-                    e.srcElement.classList.add('puffOut');
-                });
-                bClone.addEventListener('animationEnd', function(e) {
-                    e.srcElement.classList.add('puffOut');
-                });
-                innerMagicLayer.appendChild(bClone);
-            }, delay);
-        }
-        magicLayer.appendChild(innerMagicLayer);
-        setTimeout(function() {
-            innerMagicLayer.parentNode.removeChild(innerMagicLayer);
-        }, captureInterval * 2);
-    };
-
-}
-
+/* utilities */
 function getDeviceHeight() {
     return window.innerHeight || document.documentElement.offsetHeight || screen.height;
 };

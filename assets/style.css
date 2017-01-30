@@ -1,3 +1,6 @@
+html {
+    min-height: 100%
+}
 body {
     background: rgba(17,17,17,1);
     background: -moz-linear-gradient(top, rgba(17,17,17,1) 0%, rgba(17,17,17,1) 24%, rgba(28,28,28,1) 58%, rgba(0,0,0,1) 100%);
@@ -17,9 +20,21 @@ body {
 .demo-title a {
     color: orange;
 }
-.demo-container {
+#demo-container {
     position:relative;
     text-align: center;
+    opacity: 0;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+#curve_chart {
+    width: 800px;
+    height: 200px;
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    margin-left: -400px;
 }
 #video {
     position: absolute;
@@ -33,7 +48,7 @@ body {
     position: absolute;
     border-radius: 50%;
     background-color: silver;
-    opacity: 0.8;
+    opacity: 0;
 }
 .magictime.sm {
     width: 10px;
@@ -127,5 +142,72 @@ a {
   }
   to {
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF1177, 0 0 35px #FF1177, 0 0 40px #FF1177, 0 0 50px #FF1177, 0 0 75px #FF1177;
+  }
+}
+
+/* puffInOut to prevent from triggering animationEnd event */
+.puffInOut {
+  -webkit-animation-name: puffInOut;
+  -moz-animation-name: puffInOut;
+  animation-name: puffInOut;
+}
+@-webkit-keyframes puffInOut {
+  0% {
+    opacity: 0;
+    -webkit-transform-origin: 50% 50%;
+    -webkit-transform: scale(2,2);
+    -webkit-filter: blur(2px);
+  }
+  50% {
+    opacity: 0.8;
+    -webkit-transform-origin: 50% 50%;
+    -webkit-transform: scale(1,1);
+    -webkit-filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform-origin: 50% 50%;
+    -webkit-transform: scale(2,2);
+    -webkit-filter: blur(2px);
+  }
+}
+@-moz-keyframes puffInOut {
+  0% {
+    opacity: 0;
+    -moz-transform-origin: 50% 50%;
+    -moz-transform: scale(2,2);
+    -moz-filter: blur(2px);
+  }
+  50% {
+    opacity: 0.8;
+    -moz-transform-origin: 50% 50%;
+    -moz-transform: scale(1,1);
+    -moz-filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    -moz-transform-origin: 50% 50%;
+    -moz-transform: scale(2,2);
+    -moz-filter: blur(2px);
+  }
+}
+@keyframes puffInOut {
+  0% {
+    opacity: 0;
+    transform-origin: 50% 50%;
+    transform: scale(2,2);
+    filter: blur(2px);
+  }
+  50% {
+    opacity: 0.8;
+    transform-origin: 50% 50%;
+    transform: scale(1,1);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform-origin: 50% 50%;
+    transform: scale(2,2);
+    filter: blur(2px);
   }
 }
