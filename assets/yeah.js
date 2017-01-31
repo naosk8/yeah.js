@@ -6,6 +6,7 @@ var videoConstraints = {
     frameRate: { ideal: 10, max: 15 }
 };
 function DatParam() {
+    this.captureInterval = 1000;
     this.sensitivity = 60;
     this.autoAdjust = true;
     this.showCapturePanel = false;
@@ -17,35 +18,34 @@ function DatParam() {
         videoElm.controls = true;
         videoElm.src = "./assets/kazuhiro.mp4";
         initCanvasByVideo();
-
         myStream.getTracks()[0].stop();
     };
     this.captureGameMovie = function() {
         videoElm.controls = true;
         videoElm.src = "./assets/umehara.mp4";
         initCanvasByVideo();
-
         myStream.getTracks()[0].stop();
     };
 };
 var datParam = new DatParam();
 var i, z, y, imageData, gray, myStream, vData, yeah, tsDataSize, scale, scaleInverse,
     matches, corners, descriptors, lastCorners, lastDescriptors, cornersSize, matchesSize,
-    startTime, now, diff, videoElm, gui, canvas, ctx, chart, magicLayer;
-var captureInterval = 1000, isVideoStopped = false, baseHeight = 128, doFindCnt = 0;
+    startTime, now, diff, videoElm, gui, canvas, ctx, chart, magicLayer, captureIntvl;
+var isVideoStopped = false, baseHeight = 128, doFindCnt = 0;
 var tmpCanvas = document.createElement('canvas');
 var tmpCtx = tmpCanvas.getContext('2d');
 
-var tableHeader = ['time', 'diff', 'Yeah'];
 var colorList = ['pink', 'blue', 'yellow', 'green', 'orange', 'violet'];
 var colorListLen = colorList.length;
+
 var innerMagicLayerTpl = document.createElement('div');
 innerMagicLayerTpl.classList.add('inner-magic-layer');
 var bTpl = document.createElement('b');
 bTpl.classList.add('magictime');
 var cnt, particleSize, delay, index, color;
+var w = window;
 
-window.onload = function() {
+w.onload = function() {
     fixViewportHeight();
     videoElm = document.getElementById('video');
     setVideoEventListener(videoElm);
@@ -59,18 +59,25 @@ window.onload = function() {
 
     turnOnVideo();
     initDatGUI();
+    resetCaptureInterval();
+}
 
-    setInterval(function() {
+function resetCaptureInterval() {
+    if (captureIntvl) {
+        clearInterval(captureIntvl);
+    }
+    captureIntvl = setInterval(function() {
         if (!isVideoStopped) {
-            ctx.drawImage(videoElm, 0, 0, videoElm.clientWidth, videoElm.clientHeight);
+            if (datParam.showCapturePanel) {
+                ctx.drawImage(videoElm, 0, 0, videoElm.clientWidth, videoElm.clientHeight);
+            }
             tmpCtx.drawImage(videoElm, 0, 0, tmpCanvas.width, tmpCanvas.height);
-            // make delay to save some CPU usage. (I hope)
-            setTimeout(function() {
-                findFeatures(ctx);
-            }, 100);
         }
-    }, captureInterval);
-
+        // make delay to save some CPU usage. (I hope)
+        setTimeout(function() {
+            findFeatures(ctx);
+        }, 200);
+    }, datParam.captureInterval);
 }
 
 function initChart() {
@@ -113,8 +120,9 @@ function initChart() {
                 markerType: "none",
                 lineThickness:3,
                 showInLegend: true,
-                name: "diff",
+                name: "changing-rate",
                 color: "darkorange",
+                connectNullData: true,
                 dataPoints: []
             },
             {
@@ -124,6 +132,7 @@ function initChart() {
                 showInLegend: true,
                 name: "Yeah",
                 color: "limegreen",
+                connectNullData: true,
                 dataPoints: []
             }
         ]
@@ -153,26 +162,24 @@ function addEffect(value) {
     b.classList.add(particleSize);
 
     cnt = (cnt > 12) ? 12 : cnt;
-    var bList = [], index = 0;
+    var bList = new Array(), index = 0;
     for (z = 0; z < cnt; z++) {
         bClone = b.cloneNode();
         bClone.style.top = Math.floor(Math.random() * deviceHeight) + "px";
         bClone.style.left = Math.floor(Math.random() * deviceWidth) + "px";
         color = colorList[(value + z) % colorListLen];
         bClone.classList.add(color);
+        delay = Math.floor(datParam.captureInterval / cnt * z);
+        bClone.style.animationDelay = delay + 'ms';
+        bClone.classList.add('puffInOut');
         fragment.appendChild(bClone);
-        bList.push(bClone);
-        delay = captureInterval / cnt * z;
-        setTimeout(function() {
-            bList[index].classList.add('puffInOut');
-            index++;
-        }, delay);
     }
     innerMagicLayer.appendChild(fragment);
     magicLayer.appendChild(innerMagicLayer);
     setTimeout(function() {
         innerMagicLayer.parentNode.removeChild(innerMagicLayer);
-    }, captureInterval * 2);
+        innerMagicLayer = null;
+    }, datParam.captureInterval * 2);
 };
 
 function getParticleSizeClass(value) {
@@ -186,17 +193,20 @@ function getParticleSizeClass(value) {
 }
 
 function findFeatures(context) {
+    now = Math.round((new Date()).getTime() / 100) / 10;
+    if (!startTime) {
+        startTime = now;
+    }
     if (isVideoStopped) {
         doFindCnt = 0;
         lastCorners = void 0;
         lastDescriptors = void 0;
+        appendChartData('changing-rate', {x:now - startTime, y: null});
+        appendChartData('Yeah', {x:now - startTime, y: null});
+        chart.render();
         return;
     }
     doFindCnt++;
-    now = Math.round((new Date()).getTime() / 1000);
-    if (!startTime) {
-        startTime = now;
-    }
 
     tracking.Fast.THRESHOLD = 100 - datParam.sensitivity;
     imageData = getScaledImageData();
@@ -206,20 +216,20 @@ function findFeatures(context) {
 
     autoAdjustSensitivity(datParam, cornersSize);
 
-    matches = [], matchesSize = 0;
+    matches = null, matchesSize = 0;
     descriptors = tracking.Brief.getDescriptors(gray, imageData.width, corners);
     if (cornersSize > 0 && lastDescriptors && lastCorners) {
         // 双方向のマッチ処理: 負荷が高いので一時カット
-        // matches = tracking.Brief.reciprocalMatch(lastCorners, lastDescriptors, corners, descriptors);
+//        matches = tracking.Brief.reciprocalMatch(lastCorners, lastDescriptors, corners, descriptors);
         matches = tracking.Brief.match(lastCorners, lastDescriptors, corners, descriptors);
         matchesSize = matches.length;
-        diff = (1 - Math.min(1, matchesSize / cornersSize)) * 100;
+        diff = Math.floor((1 - Math.min(1, matchesSize / cornersSize)) * 10000) / 100;
         yeah = calcYeah(diff, chart.options.data[0].dataPoints);
         if (doFindCnt > 3) {
             addEffect(yeah);
         }
 
-        appendChartData('diff', {x:now - startTime, y: diff});
+        appendChartData('changing-rate', {x:now - startTime, y: diff});
         appendChartData('Yeah', {x:now - startTime, y: yeah});
         chart.render();
     }
@@ -264,6 +274,7 @@ function calcYeah(currentValue, dataPoints) {
     if (tsDataSize >= 2) {
         yeah = (Math.abs(currentValue - dataPoints[tsDataSize-1].y) * 2
             + Math.abs(dataPoints[tsDataSize-1].y - dataPoints[tsDataSize-2].y)) / 3;
+        yeah = Math.floor(yeah * 100) / 100
     } else {
         yeah = 0;
     }
@@ -272,9 +283,9 @@ function calcYeah(currentValue, dataPoints) {
 
 var dataKey;
 function appendChartData(type, rowData) {
-    if (type == 'diff') {
+    if (type == chart.options.data[0].name) {
         dataKey = 0;
-    } else if (type == 'Yeah') {
+    } else if (type == chart.options.data[1].name) {
         dataKey = 1;
     }
     if (chart.options.data[dataKey].dataPoints.length >= 60) {
@@ -325,6 +336,9 @@ function initCanvasByVideo(delay) {
 
 function initDatGUI() {
     gui = new dat.GUI();
+    gui.add(datParam, 'captureInterval', 500, 3000).onChange(function() {
+        resetCaptureInterval();
+    });
     gui.add(datParam, 'sensitivity', 0, 100);
     gui.add(datParam, 'autoAdjust');
     gui.add(datParam, 'showCapturePanel').onChange(function() {
@@ -342,10 +356,10 @@ function initDatGUI() {
 
 /* utilities */
 function getDeviceHeight() {
-    return window.innerHeight || document.documentElement.offsetHeight || screen.height;
+    return w.innerHeight || document.documentElement.offsetHeight || screen.height;
 };
 function getDeviceWidth() {
-    return window.innerWidth || document.documentElement.offsetWidth || screen.width;
+    return w.innerWidth || document.documentElement.offsetWidth || screen.width;
 };
 var deviceHeight = getDeviceHeight();
 var deviceWidth = getDeviceWidth();
@@ -355,7 +369,7 @@ function fixViewportHeight() {
     function _onResize(event) {
         html.style.height = getDeviceHeight() + 'px';
     };
-    window.addEventListener('resize', debounce(_onResize, 125), true);
+    w.addEventListener('resize', debounce(_onResize, 125), true);
     _onResize();
 };
 
