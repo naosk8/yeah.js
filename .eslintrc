@@ -1,0 +1,92 @@
+{
+  "extends": "eslint:recommended",
+  "env": {
+    "node"    : true,
+    "mocha"   : true,
+    "es6"     : true,
+    "browser" : true
+  },
+  "rules" : {
+    /***
+     *** Rule Document : http://eslint.org/docs/rules/
+     ***/
+    "camelcase" : ["error", {             // キャメルケース強制
+      "properties" : "always"
+    }],
+    "require-jsdoc" : ["error", {         // JSDocを記述するように強制
+      "require": {
+        "FunctionDeclaration": true,
+        "MethodDefinition": true,
+        "ClassDeclaration": true
+      }
+    }],
+    "valid-jsdoc" : ["error", {           // JSDoc形式で型を表現を強制
+      "requireReturn": false,
+      "preferType": {
+        "String": "String",
+        "Object": "Object",
+        "Number": "Number",
+        "Function": "Function",
+        "Void": "Void",
+      }
+    }],
+    "quotes" : ["error",                   // シングルクオートの強制
+      "single",
+      "avoid-escape"
+    ],
+    "key-spacing": ["error", {             // JSONオブジェクトのキー名との間にスペースをいれるかどうか
+      "singleLine" : {
+        "beforeColon": false,
+        "afterColon": true
+      },
+      "multiLine" : {
+        "beforeColon": false,
+        "afterColon" : true,
+        "align"      : "value"
+      }
+    }],
+    "no-magic-numbers": ["warn", {        // 変数に代入されていない値の使用禁止
+      "ignoreArrayIndexes": true,
+      "ignore": []
+    }],
+    "eqeqeq"          : "error",           // === !==など比較演算子にはより厳密性の高い演算子の強制
+    "block-scoped-var": "error",           // ブロックスコープ内でのvar宣言を禁止
+    "curly": "error",                      // 括弧の強制。つけないでif,whileなど禁止
+    "default-case": "error",               // switch構文でdefaultを強制
+    "dot-location": ["error", "property"], // ドットの位置を強制
+    "guard-for-in": "error",               // for-in内でのkeyをhasOwnPropertyでチェックするのを強制
+    "no-eval": "error",                    // eval禁止
+    "block-spacing": "error",              // ブロック内側のスペースを強制
+    "brace-style": "error",                // http://eslint.org/docs/rules/brace-style
+    "comma-spacing": ["error", {           // カンマの後ろに空白を強制
+      "before" : false,
+      "after"  : true
+    }],
+    "id-length": ["error", {               // 変数名の文字列長の強制
+      "min": 2,
+      //"max": 16, // 最大文字列長なし。
+      "properties": "never",
+      "exceptions": []   //除外変数名
+    }],
+    "indent": ["error", 4],                // インデント2個ずつの強制
+    "space-before-function-paren": [       // 関数とブロックの間のスペースを強制
+      "error",
+      "never"
+    ],
+    "space-before-blocks": "error",        // ブロックの前にスペースを強制
+    "prefer-const": "off",                 // DOMのみを対象外にできなかったので止むを得ずOFF
+    "no-var": "error",                     // varによる宣言禁止
+    "arrow-body-style": ["error"],         // ()=>{}アロー関数スタイル
+    "arrow-spacing": "error",              // アロー関数の前後にスペースを強制 () => {}
+    "strict": ["error"],                   // 'use strict';を強制
+    "no-warning-comments": ["warn", {      // コメント内のワードを検出し警告
+      "terms": [ //検出ワードリスト
+        "todo",     //あとで手を付ける
+        "fixme",    //既知の不具合がある
+        "hack"      //あまり綺麗じゃない解決策
+      ],
+      "location": "anywhere"
+    }],
+    "semi":["error"]                      // セミコロンの強制
+  }
+}

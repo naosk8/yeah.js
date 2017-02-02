@@ -1,0 +1,27 @@
+{
+  "name": "yeah.js",
+  "version": "1.0.0",
+  "description": "A javascript library to convert video input to its excitement score.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run lint",
+    "lint": "eslint ./lib/*.js",
+    "cover": "NODE_ENV=test istanbul cover --report text _mocha",
+    "mocha": "NODE_ENV=test mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naosk8/yeah.js.git"
+  },
+  "author": "Nao Ito",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/naosk8/yeah.js/issues"
+  },
+  "homepage": "https://github.com/naosk8/yeah.js#readme",
+  "devDependencies": {
+    "eslint": "^3.14.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0"
+  }
+}

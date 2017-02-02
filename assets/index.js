@@ -1,29 +1,31 @@
+'use strict';
 (function(global, undefined) {
-    "use strict";
-    var deviceHeight, deviceWidth,
+    let CanvasJS = global.CanvasJS || {};
+    let dat = global.dat || {};
+    let deviceHeight, deviceWidth,
         html = document.querySelector('html');
 
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
     /* params and elements related to yeah.js */
-    {{{
-    var myStream, videoElm, gui;
-    var videoConstraints = {
-        width: { min: 640, ideal: 1280, max: 1920 },
-        height: { min: 400, ideal: 720, max: 1080 },
-        facingMode: "user",
-        frameRate: { ideal: 10, max: 15 }
+    let myStream, videoElm, gui;
+    let videoConstraints = {
+        width:      { min: 640, ideal: 1280, max: 1920 },
+        height:     { min: 400, ideal: 720, max: 1080 },
+        facingMode: 'user',
+        frameRate:  { ideal: 10, max: 15 }
     };
-    var datParam = {
-        captureInterval: 1000,
-        minCaptureInterval: 500,
-        maxCaptureInterval: 3000,
+    let datParam = {
+        captureInterval:     1000,
+        minCaptureInterval:  500,
+        maxCaptureInterval:  3000,
         stepCaptureInterval: 250,
-        sensitivity: 60,
-        minSensitivity: 0,
-        maxSensitivity: 100,
-        autoAdjust: true,
-        showCapturePanel: false,
+        sensitivity:         60,
+        minSensitivity:      0,
+        maxSensitivity:      100,
+        autoAdjust:          true,
+        showCapturePanel:    false,
+
         captureCamera: function() {
             videoElm.controls = false;
             turnOnVideo();
@@ -41,84 +43,82 @@
             myStream.getTracks()[0].stop();
         }
     };
-    var yeah = global.Yeah(datParam);
-    }}}
+    let yeah = global.Yeah(datParam);
+
     /* params related to CanvasJS chart */
-    {{{
-    var chartOptions = {
-       theme: 'theme2',
-       zoomEnabled: false,
-       axisX: {
-           includeZero: false,
-           interval: 10
-       },
-       axisY: {
-           includeZero: false,
-           maximum: 100,
-           minimum: 0,
-           interval: 25,
-           gridColor: 'silver',
-           tickColor: 'silver'
-       },
-       backgroundColor: 'transparent',
-       toolTip:{shared: true},
-       legend:{
-           fontColor: 'silver',
-           verticalAlign: 'bottom',
-           horizontalAlign: 'center',
-           fontSize: 12,
-           fontFamily: 'Lucida Sans Unicode',
-           cursor:'pointer',
-           itemclick : function(e) {
-               if (e.dataSeries.visible === undefined || e.dataSeries.visible) {
-                   e.dataSeries.visible = false;
-               } else {
-                   e.dataSeries.visible = true;
-               }
-               chart.render();
-           }
-       },
-       data: [
-           {
-               type: 'line',
-               markerType: 'none',
-               lineThickness:3,
-               showInLegend: true,
-               name: 'changing-rate',
-               color: 'darkorange',
-               connectNullData: true,
-               dataPoints: []
-           },
-           {
-               type: 'line',
-               markerType: 'none',
-               lineThickness:3,
-               showInLegend: true,
-               name: 'Yeah',
-               color: 'limegreen',
-               connectNullData: true,
-               dataPoints: []
-           }
-       ]
+    let chartOptions = {
+        theme:           'theme2',
+        zoomEnabled:     false,
+        backgroundColor: 'transparent',
+        toolTip:         { shared: true },
+
+        axisX: {
+            includeZero: false,
+            interval:    10
+        },
+        axisY: {
+            includeZero: false,
+            maximum:     100,
+            minimum:     0,
+            interval:    25,
+            gridColor:   'silver',
+            tickColor:   'silver'
+        },
+        legend: {
+            fontColor:       'silver',
+            verticalAlign:   'bottom',
+            horizontalAlign: 'center',
+            fontSize:        12,
+            fontFamily:      'Lucida Sans Unicode',
+            cursor:          'pointer',
+
+            itemclick: function(event) {
+                if (event.dataSeries.visible === undefined || event.dataSeries.visible) {
+                    event.dataSeries.visible = false;
+                } else {
+                    event.dataSeries.visible = true;
+                }
+                chart.render();
+            }
+        },
+        data: [
+            {
+                type:            'line',
+                markerType:      'none',
+                lineThickness:   3,
+                showInLegend:    true,
+                name:            'changing-rate',
+                color:           'darkorange',
+                connectNullData: true,
+                dataPoints:      []
+            },
+            {
+                type:            'line',
+                markerType:      'none',
+                lineThickness:   3,
+                showInLegend:    true,
+                name:            'Yeah',
+                color:           'limegreen',
+                connectNullData: true,
+                dataPoints:      []
+            }
+        ]
     };
-    var CHART_TYPE_YEAH = 'Yeah';
-    var CHART_TYPE_CHANGING_RATE = 'changing-rate';
-    var chart, dataKey;
-    }}}
+    const CHART_TYPE_YEAH = 'Yeah';
+    const CHART_TYPE_CHANGING_RATE = 'changing-rate';
+    let chart, dataKey;
 
     /* params and elements related to particle */
-    {{{
-    var MAX_PARTICLE_CNT = 12;
-    var COLOR_LIST = ['pink', 'blue', 'yellow', 'green', 'orange', 'violet'];
-    var COLOR_LIST_SIZE = COLOR_LIST.length;
-    var innerMagicLayerTpl = document.createElement('div');
+    const MAX_PARTICLE_CNT = 12;
+    const COLOR_LIST = ['pink', 'blue', 'yellow', 'green', 'orange', 'violet'];
+    const COLOR_LIST_SIZE = COLOR_LIST.length;
+    let innerMagicLayerTpl = document.createElement('div');
     innerMagicLayerTpl.classList.add('inner-magic-layer');
-    var bTpl = document.createElement('b');
+    let bTpl = document.createElement('b');
     bTpl.classList.add('magictime');
-    var magicLayer, particleSize, cnt, bTplForSize, bClone, delay, color, delayPerClone;
-    }}}
+    let magicLayer, particleSize, cnt, bTplForSize, bClone, delay, color, delayPerClone;
 
-    document.addEventListener("DOMContentLoaded", function(event) {
+    document.addEventListener('DOMContentLoaded', function() {
         fixViewportHeight();
         initDatGUI();
         magicLayer = document.getElementById('animation-layer');
@@ -134,36 +134,39 @@
 
     function yeahCallback(data) {
         addEffect(data.yeah);
-        data.time = Math.floor(data.time * 100) / 100;
+        data.time = round(data.time / 1000, 2);
         appendChartData(CHART_TYPE_CHANGING_RATE, {
             x: data.time,
-            y: (data.matchRate === null) ? null : (100 - data.matchRate)
+            y: (data.matchRate === null) ? null : (100 - round(data.matchRate, 2))
         });
-        appendChartData(CHART_TYPE_YEAH, {x: data.time, y: data.yeah});
+        appendChartData(CHART_TYPE_YEAH, {
+            x: data.time,
+            y: (data.yeah === null) ? null : round(data.yeah, 2)
+        });
         chart.render();
 
         if (data.isSensitivityAdjusted) {
             datParam.sensitivity = yeah.getSensitivity();
             updateDatParamManually();
         }
-    };
+    }
 
     function turnOnVideo() {
-        navigator.getUserMedia({audio: false, video: videoConstraints}, function(stream){
+        navigator.getUserMedia({ audio: false, video: videoConstraints }, function(stream) {
             myStream = stream;
             yeah.setVideoSrc(URL.createObjectURL(myStream));
             yeah.initCanvasByVideo(2000);
         }, function() {});
-    };
+    }
 
     function addEffect(value) {
         value = Math.floor(value);
         cnt = Math.floor(value / 5);
-        if (cnt == 0) {
+        if (cnt === 0) {
             return;
         }
-        var fragment = document.createDocumentFragment();
-        var innerMagicLayer = innerMagicLayerTpl.cloneNode();
+        let fragment = document.createDocumentFragment();
+        let innerMagicLayer = innerMagicLayerTpl.cloneNode();
 
         bTplForSize = bTpl.cloneNode();
         particleSize = getParticleSizeClass(cnt);
@@ -192,7 +195,7 @@
             innerMagicLayer.parentNode.removeChild(innerMagicLayer);
             innerMagicLayer = undefined;
         }, datParam.captureInterval * 2);
-    };
+    }
 
     function getParticleSizeClass(value) {
         if (value < 5) {
@@ -205,15 +208,16 @@
     }
 
     function updateDatParamManually() {
-        for (var i in gui.__controllers) {
-            gui.__controllers[i].updateDisplay();
+        let controllerSize = gui.__controllers.length;
+        while(controllerSize--) {
+            gui.__controllers[controllerSize].updateDisplay();
         }
     }
 
     function appendChartData(type, rowData) {
-        if (type == CHART_TYPE_CHANGING_RATE) {
+        if (type === CHART_TYPE_CHANGING_RATE) {
             dataKey = 0;
-        } else if (type == CHART_TYPE_YEAH) {
+        } else if (type === CHART_TYPE_YEAH) {
             dataKey = 1;
         }
         if (chart.options.data[dataKey].dataPoints.length >= 60) {
@@ -245,38 +249,47 @@
         gui.add(datParam, 'captureCamera');
         gui.add(datParam, 'captureDanceMovie');
         gui.add(datParam, 'captureGameMovie');
-    };
+    }
 
     /* utilities */
     function getDeviceHeight() {
         return global.innerHeight || document.documentElement.offsetHeight || screen.height;
-    };
+    }
     function getDeviceWidth() {
         return global.innerWidth || document.documentElement.offsetWidth || screen.width;
-    };
+    }
     deviceHeight = getDeviceHeight();
     deviceWidth = getDeviceWidth();
 
     function fixViewportHeight() {
-        function _onResize(event) {
+        function _onResize() {
             html.style.height = getDeviceHeight() + 'px';
             html.style.width = getDeviceWidth() + 'px';
-        };
+        }
         global.addEventListener('resize', debounce(_onResize, 125), true);
         _onResize();
-    };
+    }
 
     // https://snippetrepo.com/snippets/basic-vanilla-javascript-throttlingdebounce
     function debounce(func, wait, immediate) {
-        var timeout;
+        let timeout;
         return function() {
-            var context = this, args = arguments;
+            let context = this, args = arguments;
             clearTimeout(timeout);
             timeout = setTimeout(function() {
                 timeout = null;
-                if (!immediate) func.apply(context, args);
+                if (!immediate) {
+                    func.apply(context, args);
+                }
             }, wait);
-            if (immediate && !timeout) func.apply(context, args);
+            if (immediate && !timeout) {
+                func.apply(context, args);
+            }
         };
-    };
+    }
+
+    function round(base, digit) {
+        return Math.round(base * Math.pow(10, digit)) / Math.pow(10, digit);
+    }
+
 })((this || 0).self || global);
