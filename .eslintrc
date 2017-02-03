@@ -13,14 +13,14 @@
     "camelcase" : ["error", {             // キャメルケース強制
       "properties" : "always"
     }],
-    "require-jsdoc" : ["error", {         // JSDocを記述するように強制
+    "require-jsdoc" : ["warn", {         // JSDocを記述するように強制
       "require": {
         "FunctionDeclaration": true,
         "MethodDefinition": true,
         "ClassDeclaration": true
       }
     }],
-    "valid-jsdoc" : ["error", {           // JSDoc形式で型を表現を強制
+    "valid-jsdoc" : ["warn", {           // JSDoc形式で型を表現を強制
       "requireReturn": false,
       "preferType": {
         "String": "String",
@@ -76,7 +76,7 @@
     "space-before-blocks": "error",        // ブロックの前にスペースを強制
     "prefer-const": "off",                 // DOMのみを対象外にできなかったので止むを得ずOFF
     "no-var": "error",                     // varによる宣言禁止
-    "arrow-body-style": ["error"],         // ()=>{}アロー関数スタイル
+    "arrow-body-style": ["error", "as-needed"],         // ()=>{}アロー関数スタイル
     "arrow-spacing": "error",              // アロー関数の前後にスペースを強制 () => {}
     "strict": ["error"],                   // 'use strict';を強制
     "no-warning-comments": ["warn", {      // コメント内のワードを検出し警告

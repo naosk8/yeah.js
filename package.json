@@ -4,9 +4,9 @@
   "description": "A javascript library to convert video input to its excitement score.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint",
+    "test": "npm run lint && npm run cover",
     "lint": "eslint ./lib/*.js",
-    "cover": "NODE_ENV=test istanbul cover --report text _mocha",
+    "cover": "NODE_ENV=test istanbul cover --report html --report text _mocha",
     "mocha": "NODE_ENV=test mocha"
   },
   "repository": {
@@ -22,6 +22,8 @@
   "devDependencies": {
     "eslint": "^3.14.1",
     "istanbul": "^0.4.5",
-    "mocha": "^3.2.0"
+    "jsdom": "^9.9.1",
+    "mocha": "^3.2.0",
+    "mocha-jsdom": "^1.1.0"
   }
 }

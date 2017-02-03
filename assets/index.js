@@ -5,7 +5,10 @@
     let deviceHeight, deviceWidth,
         html = document.querySelector('html');
 
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    if (!navigator.getUserMedia) {
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    }
 
     /* params and elements related to yeah.js */
     let myStream, videoElm, gui;
@@ -16,15 +19,15 @@
         frameRate:  { ideal: 10, max: 15 }
     };
     let datParam = {
-        captureInterval:     1000,
-        minCaptureInterval:  500,
-        maxCaptureInterval:  3000,
-        stepCaptureInterval: 250,
-        sensitivity:         60,
-        minSensitivity:      0,
-        maxSensitivity:      100,
-        autoAdjust:          true,
-        showCapturePanel:    false,
+        captureInterval:         1000,
+        minCaptureInterval:      500,
+        maxCaptureInterval:      3000,
+        stepCaptureInterval:     250,
+        sensitivity:             60,
+        minSensitivity:          0,
+        maxSensitivity:          100,
+        isAutoAdjustSensitivity: true,
+        isShowCapturePanel:      false,
 
         captureCamera: function() {
             videoElm.controls = false;
@@ -43,7 +46,6 @@
             myStream.getTracks()[0].stop();
         }
     };
-    let yeah = global.Yeah(datParam);
 
     /* params related to CanvasJS chart */
     let chartOptions = {
@@ -118,7 +120,21 @@
     bTpl.classList.add('magictime');
     let magicLayer, particleSize, cnt, bTplForSize, bClone, delay, color, delayPerClone;
 
-    document.addEventListener('DOMContentLoaded', function() {
+    /**
+     * You can also call with requireJS like this:
+     * @HTML
+     * <head>
+     *     <script data-main='./assets/index.js' src='./bower_components/requirejs/require.js'></script>
+     * </head>
+     *
+     * @Javascript(index.js)
+     *    require(['../lib/yeah'], function(yeah) {
+     *        init();
+     *    });
+     */
+    document.addEventListener('DOMContentLoaded', init, false);
+
+    function init() {
         fixViewportHeight();
         initDatGUI();
         magicLayer = document.getElementById('animation-layer');
@@ -128,9 +144,10 @@
 
         videoElm = document.getElementById('video');
         yeah.setVideoElement(videoElm);
+        yeah.setOptions(datParam);
         turnOnVideo();
         yeah.startCaptureVideo(yeahCallback);
-    });
+    }
 
     function yeahCallback(data) {
         addEffect(data.yeah);
@@ -240,11 +257,11 @@
         gui.add(datParam, 'sensitivity', datParam.minSensitivity, datParam.maxSensitivity).onChange(function() {
             yeah.setSensitivity(datParam.sensitivity);
         });
-        gui.add(datParam, 'autoAdjust').onChange(function() {
-            yeah.setIsAutoAdjustSensitivity(datParam.autoAdjust);
+        gui.add(datParam, 'isAutoAdjustSensitivity').onChange(function() {
+            yeah.setIsAutoAdjustSensitivity(datParam.isAutoAdjustSensitivity);
         });
-        gui.add(datParam, 'showCapturePanel').onChange(function() {
-            yeah.setIsShowCapturePanel(datParam.showCapturePanel);
+        gui.add(datParam, 'isShowCapturePanel').onChange(function() {
+            yeah.setIsShowCapturePanel(datParam.isShowCapturePanel);
         });
         gui.add(datParam, 'captureCamera');
         gui.add(datParam, 'captureDanceMovie');
