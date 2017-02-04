@@ -1,20 +1,12 @@
 'use strict'
 let assert = require('assert');
 let yeah = require('../lib/yeah');
+let jsdom = require('mocha-jsdom');
 
 describe("application", function() {
-    beforeEach(function() {
-        let jsdom = require('jsdom').jsdom;
-        global.document = jsdom('<html><body></body></html>')
-        global.window = document.defaultView;
-        global.navigator = window.navigator;
-        global.location = window.location;
+    jsdom();
+    before(function() {
         yeah.createCanvas();
-    });
-    afterEach(function() {
-        delete global.document;
-        delete global.window;
-        delete global.navigator;
     });
     describe('createCanvas', function() {
         it('executable without error', function() {
