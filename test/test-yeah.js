@@ -30,13 +30,24 @@ describe("application", function() {
             assert(true);
         });
     });
-    describe('initCanvasByVideo', function() {
+    describe('playVideo', function() {
+        let src = '../assets/media/kazuhiro.mp4';
         it('executable without error', function(done) {
             let videoElm = document.createElement('video');
             document.body.appendChild(videoElm);
             yeah.setVideoElement(videoElm);
-            yeah.setVideoSrc('../assets/media/kazuhiro.mp4');
-            let p = yeah.initCanvasByVideo();
+            let p = yeah.playVideo(src, 500);
+            p.then(() => {
+                assert(true);
+                done();
+            });
+        });
+
+        it('without delay argument', function(done) {
+            let videoElm = document.createElement('video');
+            document.body.appendChild(videoElm);
+            yeah.setVideoElement(videoElm);
+            let p = yeah.playVideo(src);
             p.then(() => {
                 assert(true);
                 done();
@@ -212,17 +223,17 @@ describe("application", function() {
             });
         });
     });
-    describe('autoAdjustSensitivity', function() {
+    describe('adjustSensitivity', function() {
         it('auto adjust off', function() {
             yeah.setIsAutoAdjustSensitivity(false);
-            let isUpdated = yeah.autoAdjustSensitivity(10000);
+            let isUpdated = yeah.adjustSensitivity(10000);
             assert(!isUpdated);
         });
 
         it('auto adjust on: corner=401 x sensitivity=0 ', function() {
             yeah.setIsAutoAdjustSensitivity(true);
             yeah.setSensitivity(0);
-            let isUpdated = yeah.autoAdjustSensitivity(401);
+            let isUpdated = yeah.adjustSensitivity(401);
             assert(!isUpdated);
             assert.equal(yeah.getSensitivity(), 0);
         });
@@ -230,7 +241,7 @@ describe("application", function() {
         it('auto adjust on: corner=401 x sensitivity=1 ', function() {
             yeah.setIsAutoAdjustSensitivity(true);
             yeah.setSensitivity(1);
-            let isUpdated = yeah.autoAdjustSensitivity(401);
+            let isUpdated = yeah.adjustSensitivity(401);
             assert(isUpdated);
             assert.equal(yeah.getSensitivity(), 0);
         });
@@ -238,7 +249,7 @@ describe("application", function() {
         it('auto adjust on: corner=400 x sensitivity=100 ', function() {
             yeah.setIsAutoAdjustSensitivity(true);
             yeah.setSensitivity(100);
-            let isUpdated = yeah.autoAdjustSensitivity(400);
+            let isUpdated = yeah.adjustSensitivity(400);
             assert(!isUpdated);
             assert.equal(yeah.getSensitivity(), 100);
         });
@@ -246,7 +257,7 @@ describe("application", function() {
         it('auto adjust on: corner=250 x sensitivity=0 ', function() {
             yeah.setIsAutoAdjustSensitivity(true);
             yeah.setSensitivity(0);
-            let isUpdated = yeah.autoAdjustSensitivity(250);
+            let isUpdated = yeah.adjustSensitivity(250);
             assert(!isUpdated);
             assert.equal(yeah.getSensitivity(), 0);
         });
@@ -254,7 +265,7 @@ describe("application", function() {
         it('auto adjust on: corner=249 x sensitivity=0 ', function() {
             yeah.setIsAutoAdjustSensitivity(true);
             yeah.setSensitivity(0);
-            let isUpdated = yeah.autoAdjustSensitivity(249);
+            let isUpdated = yeah.adjustSensitivity(249);
             assert(isUpdated);
             assert.equal(yeah.getSensitivity(), 2);
         });

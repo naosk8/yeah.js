@@ -1,16 +1,98 @@
-'use strict';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lib/yeah.js - yeah.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="yeah.js" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 1.0.0</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Yeah.html">Yeah</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: lib/yeah.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x27;use strict&#x27;;
 (function(name, myClass) {
     let instance = new myClass();
     // This is only for unit test.
-    if (typeof module !== 'undefined') {
-        module['exports'] = instance;
+    if (typeof module !== &#x27;undefined&#x27;) {
+        module[&#x27;exports&#x27;] = instance;
     } else {
         window[name] = instance;
         instance.createCanvas();
     }
     return instance;
 
-}) ('yeah', function(global) {
+}) (&#x27;yeah&#x27;, function(global) {
     let tracking = global.tracking || {};
 
     const MAX_TRACKING_FAST_THRESHOLD = 100;
@@ -64,7 +146,7 @@
      * @return {Object} Promise object to make delay like setTimeout
      */
     function delayTimer(delay) {
-        return new Promise((resolve) => {
+        return new Promise((resolve) =&gt; {
             setTimeout(resolve, delay);
         });
     }
@@ -78,7 +160,7 @@
      * @return {Object} Promise object for some processing
      */
     function pEmit(func) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) =&gt; {
             try {
                 let result = func();
                 resolve(result);
@@ -129,10 +211,10 @@
          */
         createCanvas() {
             if (this.userCanvas === undefined) {
-                this.userCanvas = document.createElement('canvas');
-                this.userCtx = this.userCanvas.getContext('2d');
-                this.calcCanvas = document.createElement('canvas');
-                this.calcCtx = this.calcCanvas.getContext('2d');
+                this.userCanvas = document.createElement(&#x27;canvas&#x27;);
+                this.userCtx = this.userCanvas.getContext(&#x27;2d&#x27;);
+                this.calcCanvas = document.createElement(&#x27;canvas&#x27;);
+                this.calcCtx = this.calcCanvas.getContext(&#x27;2d&#x27;);
             }
         }
 
@@ -294,7 +376,7 @@
             this.userCanvas.style.opacity = HIDDEN_OPACITY;
 
             return delayTimer(delay)
-            .then(() => {
+            .then(() =&gt; {
                 this.userCanvas.width = this.videoElm.clientWidth;
                 this.userCanvas.height = this.videoElm.clientHeight;
                 this.scale = CANVAS_HEIGHT_FOR_CALCULATION / this.userCanvas.height;
@@ -326,7 +408,7 @@
          */
         startCaptureVideo(successCallback, failureCallback) {
             this.stopCaptureVideo();
-            this.captureIntervalTimer = setInterval(() => {
+            this.captureIntervalTimer = setInterval(() =&gt; {
                 if (!isVideoPaused(this.videoElm)) {
                     if (this.options.isShowCapturePanel) {
                         this.userCtx.drawImage(this.videoElm, CAPTURE_OFFSET_LEFT, CAPTURE_OFFSET_TOP, this.videoElm.clientWidth, this.videoElm.clientHeight);
@@ -336,8 +418,8 @@
                     this.clearLastCaptureInfo();
                 }
                 delayTimer(DELAY_TO_DECENTRALIZE_CPU_USAGE)
-                .then(() => this.findFeatures())
-                .then((data) => pEmit(() => {
+                .then(() =&gt; this.findFeatures())
+                .then((data) =&gt; pEmit(() =&gt; {
                     data.time = data.now - this.startTime;
                     if (!isVideoPaused(this.videoElm)) {
                         data.isSensitivityAdjusted = this.adjustSensitivity(data.cornerList.length);
@@ -348,17 +430,17 @@
                         data.isSensitivityAdjusted = false;
                         data.yeah = null;
                     }
-                    if (this.tsDataList.length > MIN_DATA_TO_CALC_YEAH) {
+                    if (this.tsDataList.length &gt; MIN_DATA_TO_CALC_YEAH) {
                         this.tsDataList.shift();
                     }
                     return data;
-                })).then((data) => {
+                })).then((data) =&gt; {
                     successCallback(data);
-                }).catch((error) => {
+                }).catch((error) =&gt; {
                     if (failureCallback !== undefined) {
                         failureCallback(error);
                     } else {
-                        throw new Error('yeah.js: caught an error in captureIntervalTimer.');
+                        throw new Error(&#x27;yeah.js: caught an error in captureIntervalTimer.&#x27;);
                     }
                 });
             }, this.options.captureInterval);
@@ -389,7 +471,7 @@
 
             let yeahScore;
             let tsDataCnt = tsDataList.length;
-            if (tsDataCnt >= MIN_DATA_TO_CALC_YEAH) {
+            if (tsDataCnt &gt;= MIN_DATA_TO_CALC_YEAH) {
                 /* eslint-disable */
                 yeahScore = (Math.abs(currentMatchRate - tsDataList[tsDataCnt - 1].matchRate) * 2
                     + Math.abs(tsDataList[tsDataCnt - 1].matchRate - tsDataList[tsDataCnt - 2].matchRate)) / 3;
@@ -420,7 +502,7 @@
          * @return {Object} Promise object to find features
          */
         findFeatures() {
-            return pEmit(() => {
+            return pEmit(() =&gt; {
                 let now = (new Date()).getTime();
                 if (this.startTime === undefined) {
                     this.startTime = now;
@@ -442,7 +524,7 @@
 
                 let matchList = new Array();
                 let descriptorList = tracking.Brief.getDescriptors(gray, imageData.width, cornerList);
-                if (cornerList.length && this.lastDescriptorList && this.lastCornerList) {
+                if (cornerList.length &amp;&amp; this.lastDescriptorList &amp;&amp; this.lastCornerList) {
                     // tracking.Brief.reciprocalMatch is more accurate but takes higher cpu cost.
                     matchList = tracking.Brief.match(this.lastCornerList, this.lastDescriptorList, cornerList, descriptorList);
                     matchRate = Math.min(MAX_MATCH_RATE, matchList.length / cornerList.length * MAX_MATCH_RATE);
@@ -470,10 +552,10 @@
             if (!this.options.isShowCapturePanel) {
                 return;
             }
-            this.userCtx.fillStyle = '#f00';
+            this.userCtx.fillStyle = &#x27;#f00&#x27;;
             let loopCnt = trackedData.cornerList.length;
             // eslint-disable-next-line
-            while ((loopCnt-=2)>=0) {
+            while ((loopCnt-=2)&gt;=0) {
                 this.userCtx.fillRect(
                     trackedData.cornerList[loopCnt] * this.scaleInverse,
                     // eslint-disable-next-line
@@ -481,11 +563,11 @@
                     this.options.markerSize, this.options.markerSize
                 );
             }
-            this.userCtx.fillStyle = '#0f0';
+            this.userCtx.fillStyle = &#x27;#0f0&#x27;;
             loopCnt = trackedData.matchList.length;
             let match;
             // eslint-disable-next-line
-            while ((loopCnt-=2)>=0) { // Skip drawing the half of them.
+            while ((loopCnt-=2)&gt;=0) { // Skip drawing the half of them.
                 match = trackedData.matchList[loopCnt].keypoint1;
                 this.userCtx.fillRect(
                     match[0] * this.scaleInverse, match[1] * this.scaleInverse,
@@ -506,14 +588,14 @@
                 return false;
             }
             let isUpdate = false;
-            if (cornerCnt > MAX_MODERATE_CORNER_COUNT && this.options.sensitivity > MIN_SENSITIVITY) {
+            if (cornerCnt &gt; MAX_MODERATE_CORNER_COUNT &amp;&amp; this.options.sensitivity &gt; MIN_SENSITIVITY) {
                 this.options.sensitivity -= Math.max(
                     MIN_SENSITIVITY_AUTO_ADJUSTMENT,
                     Math.ceil((cornerCnt - MAX_MODERATE_CORNER_COUNT) / MAX_SENSITIVITY_ADJUST_DENOMINATOR)
                 );
                 this.options.sensitivity = Math.max(MIN_SENSITIVITY, this.options.sensitivity);
                 isUpdate = true;
-            } else if (cornerCnt < MIN_MODERATE_CORNER_COUNT && this.options.sensitivity < MAX_SENSITIVITY) {
+            } else if (cornerCnt &lt; MIN_MODERATE_CORNER_COUNT &amp;&amp; this.options.sensitivity &lt; MAX_SENSITIVITY) {
                 this.options.sensitivity += Math.max(
                     MIN_SENSITIVITY_AUTO_ADJUSTMENT,
                     Math.ceil((MIN_MODERATE_CORNER_COUNT - cornerCnt) / MIN_SENSITIVITY_ADJUST_DENOMINATOR)
@@ -527,3 +609,22 @@
     }
     return Yeah;
 } (this.self || global));
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

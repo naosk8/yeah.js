@@ -1,0 +1,440 @@
+{
+    "project": {
+        "name": "yeah.js",
+        "description": "yeah.js: a library to convert video to its excitement score.",
+        "version": "1.0.0",
+        "url": "https://github.com/naosk8/yeah.js"
+    },
+    "files": {
+        "lib/yeah.js": {
+            "name": "lib/yeah.js",
+            "modules": {},
+            "classes": {
+                "Yeah": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "Yeah": {
+            "name": "Yeah",
+            "shortname": "Yeah",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "lib/yeah.js",
+            "line": 91,
+            "description": "A library to convert video to its excitement score."
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "lib/yeah.js",
+            "line": 45,
+            "description": "Get flag for video playing status\nhttp://www.w3schools.com/TagS/ref_av_dom.asp",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "isVideoPaused",
+            "params": [
+                {
+                    "name": "videoElm",
+                    "description": "Video element",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "Flag for video playing status (stop: true, playing: false)",
+                "type": "Boolean"
+            },
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 58,
+            "description": "Promise to make delay",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "delayTimer",
+            "params": [
+                {
+                    "name": "delay",
+                    "description": "Delay time for resolve timer (ms)",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Promise object to make delay like setTimeout",
+                "type": "Object"
+            },
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 72,
+            "description": "Promise to wrap processing",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "pEmit",
+            "params": [
+                {
+                    "name": "func",
+                    "description": "Function to be wrapped by Promise",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "Promise object for some processing",
+                "type": "Object"
+            },
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 97,
+            "description": "constructor of yeah.js class",
+            "is_constructor": 1,
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 125,
+            "description": "Create canvas",
+            "itemtype": "method",
+            "name": "createCanvas",
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 139,
+            "description": "Set options",
+            "itemtype": "method",
+            "name": "SetOptions",
+            "params": [
+                {
+                    "name": "options",
+                    "description": "Options to be set",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "Accepted options",
+                "type": "Object"
+            },
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 165,
+            "description": "Set video element",
+            "params": [
+                {
+                    "name": "videoElm",
+                    "description": "A video element as a capture target",
+                    "type": "Object"
+                }
+            ],
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 177,
+            "description": "Set video src",
+            "itemtype": "method",
+            "name": "setVideoSrc",
+            "params": [
+                {
+                    "name": "src",
+                    "description": "Video source url",
+                    "type": "String"
+                }
+            ],
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 188,
+            "description": "Get capture interval",
+            "itemtype": "method",
+            "name": "getCaptureInterval",
+            "return": {
+                "description": "Capture interval",
+                "type": "Number"
+            },
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 198,
+            "description": "Set capture interval",
+            "itemtype": "method",
+            "name": "setCaptureInterval",
+            "params": [
+                {
+                    "name": "captureInterval",
+                    "description": "Capture interval to be set",
+                    "type": "Number"
+                }
+            ],
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 208,
+            "description": "Get sensitivity",
+            "itemtype": "method",
+            "name": "getSensitivity",
+            "return": {
+                "description": "Sensitivity",
+                "type": "Number"
+            },
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 218,
+            "description": "Update sensitivity",
+            "itemtype": "method",
+            "name": "setSensitivity",
+            "params": [
+                {
+                    "name": "sensitivity",
+                    "description": "Sensitivity to be set",
+                    "type": "Number"
+                }
+            ],
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 230,
+            "description": "Get flag for showing capture panel",
+            "itemtype": "method",
+            "name": "isShowCapturePanel",
+            "return": {
+                "description": "Flag for show capture panel",
+                "type": "Boolean"
+            },
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 240,
+            "description": "Set flag for showing capture panel",
+            "itemtype": "method",
+            "name": "setIsShowCapturePanel",
+            "params": [
+                {
+                    "name": "bool",
+                    "description": "Flag to be set",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 251,
+            "description": "Get flag for auto sensitivity adjustment",
+            "itemtype": "method",
+            "name": "isAutoAdjustSensitivity",
+            "return": {
+                "description": "Flag for auto sensitivity adjustment",
+                "type": "Boolean"
+            },
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 261,
+            "description": "Set flag for auto sensitivity adjustment",
+            "itemtype": "method",
+            "name": "setIsAutoAdjustSensitivity",
+            "params": [
+                {
+                    "name": "bool",
+                    "description": "Flag to be set",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 271,
+            "description": "Set marker size",
+            "itemtype": "method",
+            "name": "setMarkerSize",
+            "params": [
+                {
+                    "name": "markerSize",
+                    "description": "Marker size to be set",
+                    "type": "Number"
+                }
+            ],
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 281,
+            "description": "play video and initialize canvas",
+            "itemtype": "method",
+            "name": "playVideo",
+            "params": [
+                {
+                    "name": "src",
+                    "description": "Video src",
+                    "type": "String"
+                },
+                {
+                    "name": "delay",
+                    "description": "Delay for copying height and width from video element",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Promise object",
+                "type": "Object"
+            },
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 309,
+            "description": "Stop capturing video element",
+            "itemtype": "method",
+            "name": "stopCaptureVideo",
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 320,
+            "description": "Start capturing video element to canvas",
+            "itemtype": "method",
+            "name": "startCaptureVideo",
+            "params": [
+                {
+                    "name": "successCallback",
+                    "description": "Callback after getting capture data",
+                    "type": "Function"
+                },
+                {
+                    "name": "failureCallback",
+                    "description": "Callback for getting error for each capture loop",
+                    "type": "Function"
+                }
+            ],
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 367,
+            "description": "Set custom yeah calculator",
+            "itemtype": "method",
+            "name": "setCustomYeahCalculator",
+            "params": [
+                {
+                    "name": "func",
+                    "description": "Customized yeah calculator",
+                    "type": "Function"
+                }
+            ],
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 377,
+            "description": "Calculate yeah score from time series data set",
+            "itemtype": "method",
+            "name": "calcYeah",
+            "params": [
+                {
+                    "name": "currentMatchRate",
+                    "description": "Current match rate score",
+                    "type": "Number"
+                },
+                {
+                    "name": "tsDataList",
+                    "description": "List of corner detection and yeah score history data",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "Yeah score",
+                "type": "Number"
+            },
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 405,
+            "description": "Clear last capture info",
+            "itemtype": "method",
+            "name": "clearLastCaptureInfo",
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 416,
+            "description": "Find features from captured image on canvas",
+            "itemtype": "method",
+            "name": "findFeatures",
+            "return": {
+                "description": "Promise object to find features",
+                "type": "Object"
+            },
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 463,
+            "description": "Fill marker on tracked corners and matched points",
+            "itemtype": "method",
+            "name": "fillTrackedPointsOnCanvas",
+            "params": [
+                {
+                    "name": "trackedData",
+                    "description": "Tracked data points",
+                    "type": "Object"
+                }
+            ],
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 497,
+            "description": "Auto adjustment for sensitivity with found corner size",
+            "itemtype": "method",
+            "name": "adjustSensitivity",
+            "params": [
+                {
+                    "name": "cornerCnt",
+                    "description": "Found corner size",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Result flag for auto adjustment",
+                "type": "Boolean"
+            },
+            "class": "Yeah"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nconstructor of yeah.js class",
+            "line": " lib/yeah.js:97"
+        },
+        {
+            "message": "Missing item type\nSet video element",
+            "line": " lib/yeah.js:165"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "yeah.js",
+  "description": "yeah.js: a library to convert video to its excitement score.",
+  "version": "1.0.0",
+  "url": "https://github.com/naosk8/yeah.js",
+  "options": {
+    "paths": "lib",
+    "outdir": "./docs"
+  }
+}
