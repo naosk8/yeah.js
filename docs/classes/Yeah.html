@@ -3,81 +3,95 @@
 <head>
     <meta charset="utf-8">
     <title>Yeah - yeah.js</title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
-    <link rel="icon" href="../assets/favicon.ico">
-    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
 </head>
 <body class="yui3-skin-sam">
-
-<div id="doc">
-    <div id="hd" class="yui3-g header">
-        <div class="yui3-u-3-4">
-                <h1><img src="../assets/css/logo.png" title="yeah.js" width="117" height="52"></h1>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="yeah.js" src="../assets/css/logo.png" style="max-height: 65%;" title="yeah.js">
+            yeah.js
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>1.0.0</b>
+                </p>
+            </li>
         </div>
-        <div class="yui3-u-1-4 version">
-            <em>API Docs for: 1.0.0</em>
-        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Yeah"]'>
+        </form>
     </div>
-    <div id="bd" class="yui3-g">
-
-        <div class="yui3-u-1-4">
-            <div id="docs-sidebar" class="sidebar apidocs">
-                <div id="api-list">
-                    <h2 class="off-left">APIs</h2>
-                    <div id="api-tabview" class="tabview">
-                        <ul class="tabs">
-                            <li><a href="#api-classes">Classes</a></li>
-                            <li><a href="#api-modules">Modules</a></li>
-                        </ul>
-                
-                        <div id="api-tabview-filter">
-                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
-                        </div>
-                
-                        <div id="api-tabview-panel">
-                            <ul id="api-classes" class="apis classes">
-                                <li><a href="../classes/Yeah.html">Yeah</a></li>
-                            </ul>
-                
-                
-                            <ul id="api-modules" class="apis modules">
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/Yeah.html">Yeah</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
         </div>
-        <div class="yui3-u-3-4">
-                <div id="api-options">
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
                     Show:
-                    <label for="api-show-inherited">
+                    <label for="api-show-inherited" class="checkbox">
                         <input type="checkbox" id="api-show-inherited" checked>
                         Inherited
                     </label>
             
-                    <label for="api-show-protected">
+                    <label for="api-show-protected" class="checkbox">
                         <input type="checkbox" id="api-show-protected">
                         Protected
                     </label>
             
-                    <label for="api-show-private">
+                    <label for="api-show-private" class="checkbox">
                         <input type="checkbox" id="api-show-private">
                         Private
                     </label>
-                    <label for="api-show-deprecated">
+                    <label for="api-show-deprecated" class="checkbox">
                         <input type="checkbox" id="api-show-deprecated">
                         Deprecated
                     </label>
             
-                </div>
+                </form>
             
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>Yeah Class</h1>
-<div class="box meta">
+<div class="page-header">
+    <h1>Yeah <small>Class</small></h1>
+</div>
+
+<div class="well well-small">
 
 
         <div class="foundat">
@@ -88,21 +102,21 @@
 </div>
 
 
-<div class="box intro">
+<div class="well well-small">
     <p>A library to convert video to its excitement score.</p>
 
 </div>
 
 
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
+<div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#index">Index</a></li>
 
-            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+            <li><a data-toggle="tab" href="#methods">Methods</a></li>
     </ul>
 
-    <div>
-        <div id="index" class="api-class-tabpanel index">
+    <div class="tab-content">
+        <div id="index" class="tab-pane active">
             <h2 class="off-left">Item Index</h2>
 
                 <div class="index-section methods">
@@ -110,99 +124,99 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
-                                <a href="#method_adjustSensitivity">adjustSensitivity</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_adjustSensitivity" data-tablink="adjustSensitivity">adjustSensitivity</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_calcYeah">calcYeah</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_calcYeah" data-tablink="calcYeah">calcYeah</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_clearLastCaptureInfo">clearLastCaptureInfo</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_clearLastCaptureInfo" data-tablink="clearLastCaptureInfo">clearLastCaptureInfo</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_createCanvas">createCanvas</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_createCanvas" data-tablink="createCanvas">createCanvas</a>
 
                             </li>
                             <li class="index-item method private">
-                                <a href="#method_delayTimer">delayTimer</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_delayTimer" data-tablink="delayTimer">delayTimer</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_fillTrackedPointsOnCanvas">fillTrackedPointsOnCanvas</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_fillTrackedPointsOnCanvas" data-tablink="fillTrackedPointsOnCanvas">fillTrackedPointsOnCanvas</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_findFeatures">findFeatures</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_findFeatures" data-tablink="findFeatures">findFeatures</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_getCaptureInterval">getCaptureInterval</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_getCaptureInterval" data-tablink="getCaptureInterval">getCaptureInterval</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_getSensitivity">getSensitivity</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_getSensitivity" data-tablink="getSensitivity">getSensitivity</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_isAutoAdjustSensitivity">isAutoAdjustSensitivity</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_isAutoAdjustSensitivity" data-tablink="isAutoAdjustSensitivity">isAutoAdjustSensitivity</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_isShowCapturePanel">isShowCapturePanel</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_isShowCapturePanel" data-tablink="isShowCapturePanel">isShowCapturePanel</a>
 
                             </li>
                             <li class="index-item method private">
-                                <a href="#method_isVideoPaused">isVideoPaused</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_isVideoPaused" data-tablink="isVideoPaused">isVideoPaused</a>
 
                             </li>
                             <li class="index-item method private">
-                                <a href="#method_pEmit">pEmit</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_pEmit" data-tablink="pEmit">pEmit</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_playVideo">playVideo</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_playVideo" data-tablink="playVideo">playVideo</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_setCaptureInterval">setCaptureInterval</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_setCaptureInterval" data-tablink="setCaptureInterval">setCaptureInterval</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_setCustomYeahCalculator">setCustomYeahCalculator</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_setCustomYeahCalculator" data-tablink="setCustomYeahCalculator">setCustomYeahCalculator</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_setIsAutoAdjustSensitivity">setIsAutoAdjustSensitivity</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_setIsAutoAdjustSensitivity" data-tablink="setIsAutoAdjustSensitivity">setIsAutoAdjustSensitivity</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_setIsShowCapturePanel">setIsShowCapturePanel</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_setIsShowCapturePanel" data-tablink="setIsShowCapturePanel">setIsShowCapturePanel</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_setMarkerSize">setMarkerSize</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_setMarkerSize" data-tablink="setMarkerSize">setMarkerSize</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_SetOptions">SetOptions</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_SetOptions" data-tablink="SetOptions">SetOptions</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_setSensitivity">setSensitivity</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_setSensitivity" data-tablink="setSensitivity">setSensitivity</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_setVideoSrc">setVideoSrc</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_setVideoSrc" data-tablink="setVideoSrc">setVideoSrc</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_startCaptureVideo">startCaptureVideo</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_startCaptureVideo" data-tablink="startCaptureVideo">startCaptureVideo</a>
 
                             </li>
                             <li class="index-item method">
-                                <a href="#method_stopCaptureVideo">stopCaptureVideo</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_stopCaptureVideo" data-tablink="stopCaptureVideo">stopCaptureVideo</a>
 
                             </li>
                     </ul>
@@ -212,1311 +226,1287 @@
 
         </div>
 
-            <div id="methods" class="api-class-tabpanel">
+            <div id="methods" class="tab-pane">
                 <h2 class="off-left">Methods</h2>
 
-<div id="method_adjustSensitivity" class="method item">
-    <h3 class="name"><code>adjustSensitivity</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>cornerCnt</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-        <span class="returns-inline">
-            <span class="type">Boolean</span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l497"><code>lib&#x2F;yeah.js:497</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Auto adjustment for sensitivity with found corner size</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">cornerCnt</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>Found corner size</p>
-
+                    <div id="method_adjustSensitivity" class="method item">
+                        <h3 class="name"><code>adjustSensitivity</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>cornerCnt</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Boolean</span>
+                            </span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l497"><code>lib&#x2F;yeah.js:497</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Auto adjustment for sensitivity with found corner size</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">cornerCnt</code>
+                                            <span class="type">Number</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Found corner size</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Boolean</span>:
+                                        <p>Result flag for auto adjustment</p>
+                    
+                                </div>
+                            </div>
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Boolean</span>:
-                    <p>Result flag for auto adjustment</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_calcYeah" class="method item">
-    <h3 class="name"><code>calcYeah</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>currentMatchRate</code>
-                </li>
-                <li class="arg">
-                        <code>tsDataList</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-        <span class="returns-inline">
-            <span class="type">Number</span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l377"><code>lib&#x2F;yeah.js:377</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Calculate yeah score from time series data set</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">currentMatchRate</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>Current match rate score</p>
-
+                    <div id="method_calcYeah" class="method item">
+                        <h3 class="name"><code>calcYeah</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>currentMatchRate</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>tsDataList</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Number</span>
+                            </span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l377"><code>lib&#x2F;yeah.js:377</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Calculate yeah score from time series data set</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">currentMatchRate</code>
+                                            <span class="type">Number</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Current match rate score</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">tsDataList</code>
+                                            <span class="type">Array</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>List of corner detection and yeah score history data</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Number</span>:
+                                        <p>Yeah score</p>
+                    
+                                </div>
+                            </div>
+                    
                     </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">tsDataList</code>
-                        <span class="type">Array</span>
-
-
-                    <div class="param-description">
-                        <p>List of corner detection and yeah score history data</p>
-
+                    <div id="method_clearLastCaptureInfo" class="method item">
+                        <h3 class="name"><code>clearLastCaptureInfo</code></h3>
+                    
+                            <span class="paren">()</span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l405"><code>lib&#x2F;yeah.js:405</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Clear last capture info</p>
+                    
+                        </div>
+                    
+                    
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Number</span>:
-                    <p>Yeah score</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_clearLastCaptureInfo" class="method item">
-    <h3 class="name"><code>clearLastCaptureInfo</code></h3>
-
-        <span class="paren">()</span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l405"><code>lib&#x2F;yeah.js:405</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Clear last capture info</p>
-
-    </div>
-
-
-
-
-</div>
-<div id="method_createCanvas" class="method item">
-    <h3 class="name"><code>createCanvas</code></h3>
-
-        <span class="paren">()</span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l125"><code>lib&#x2F;yeah.js:125</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Create canvas</p>
-
-    </div>
-
-
-
-
-</div>
-<div id="method_delayTimer" class="method item private">
-    <h3 class="name"><code>delayTimer</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>delay</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-        <span class="returns-inline">
-            <span class="type">Object</span>
-        </span>
-
-
-        <span class="flag private">private</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l58"><code>lib&#x2F;yeah.js:58</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Promise to make delay</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">delay</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>Delay time for resolve timer (ms)</p>
-
+                    <div id="method_createCanvas" class="method item">
+                        <h3 class="name"><code>createCanvas</code></h3>
+                    
+                            <span class="paren">()</span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l125"><code>lib&#x2F;yeah.js:125</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Create canvas</p>
+                    
+                        </div>
+                    
+                    
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Object</span>:
-                    <p>Promise object to make delay like setTimeout</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_fillTrackedPointsOnCanvas" class="method item">
-    <h3 class="name"><code>fillTrackedPointsOnCanvas</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>trackedData</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l463"><code>lib&#x2F;yeah.js:463</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Fill marker on tracked corners and matched points</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">trackedData</code>
-                        <span class="type">Object</span>
-
-
-                    <div class="param-description">
-                        <p>Tracked data points</p>
-
+                    <div id="method_delayTimer" class="method item private">
+                        <h3 class="name"><code>delayTimer</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>delay</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Object</span>
+                            </span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l58"><code>lib&#x2F;yeah.js:58</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Promise to make delay</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">delay</code>
+                                            <span class="type">Number</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Delay time for resolve timer (ms)</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Object</span>:
+                                        <p>Promise object to make delay like setTimeout</p>
+                    
+                                </div>
+                            </div>
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_findFeatures" class="method item">
-    <h3 class="name"><code>findFeatures</code></h3>
-
-        <span class="paren">()</span>
-
-        <span class="returns-inline">
-            <span class="type">Object</span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l416"><code>lib&#x2F;yeah.js:416</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Find features from captured image on canvas</p>
-
-    </div>
-
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Object</span>:
-                    <p>Promise object to find features</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_getCaptureInterval" class="method item">
-    <h3 class="name"><code>getCaptureInterval</code></h3>
-
-        <span class="paren">()</span>
-
-        <span class="returns-inline">
-            <span class="type">Number</span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l188"><code>lib&#x2F;yeah.js:188</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Get capture interval</p>
-
-    </div>
-
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Number</span>:
-                    <p>Capture interval</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_getSensitivity" class="method item">
-    <h3 class="name"><code>getSensitivity</code></h3>
-
-        <span class="paren">()</span>
-
-        <span class="returns-inline">
-            <span class="type">Number</span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l208"><code>lib&#x2F;yeah.js:208</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Get sensitivity</p>
-
-    </div>
-
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Number</span>:
-                    <p>Sensitivity</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_isAutoAdjustSensitivity" class="method item">
-    <h3 class="name"><code>isAutoAdjustSensitivity</code></h3>
-
-        <span class="paren">()</span>
-
-        <span class="returns-inline">
-            <span class="type">Boolean</span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l251"><code>lib&#x2F;yeah.js:251</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Get flag for auto sensitivity adjustment</p>
-
-    </div>
-
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Boolean</span>:
-                    <p>Flag for auto sensitivity adjustment</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_isShowCapturePanel" class="method item">
-    <h3 class="name"><code>isShowCapturePanel</code></h3>
-
-        <span class="paren">()</span>
-
-        <span class="returns-inline">
-            <span class="type">Boolean</span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l230"><code>lib&#x2F;yeah.js:230</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Get flag for showing capture panel</p>
-
-    </div>
-
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Boolean</span>:
-                    <p>Flag for show capture panel</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_isVideoPaused" class="method item private">
-    <h3 class="name"><code>isVideoPaused</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>videoElm</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-        <span class="returns-inline">
-            <span class="type">Boolean</span>
-        </span>
-
-
-        <span class="flag private">private</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l45"><code>lib&#x2F;yeah.js:45</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Get flag for video playing status
-<a href="http://www.w3schools.com/TagS/ref_av_dom.asp">http://www.w3schools.com/TagS/ref_av_dom.asp</a></p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">videoElm</code>
-                        <span class="type">Object</span>
-
-
-                    <div class="param-description">
-                        <p>Video element</p>
-
+                    <div id="method_fillTrackedPointsOnCanvas" class="method item">
+                        <h3 class="name"><code>fillTrackedPointsOnCanvas</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>trackedData</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l463"><code>lib&#x2F;yeah.js:463</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Fill marker on tracked corners and matched points</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">trackedData</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Tracked data points</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Boolean</span>:
-                    <p>Flag for video playing status (stop: true, playing: false)</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_pEmit" class="method item private">
-    <h3 class="name"><code>pEmit</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>func</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-        <span class="returns-inline">
-            <span class="type">Object</span>
-        </span>
-
-
-        <span class="flag private">private</span>
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l72"><code>lib&#x2F;yeah.js:72</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Promise to wrap processing</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">func</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                        <p>Function to be wrapped by Promise</p>
-
+                    <div id="method_findFeatures" class="method item">
+                        <h3 class="name"><code>findFeatures</code></h3>
+                    
+                            <span class="paren">()</span>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Object</span>
+                            </span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l416"><code>lib&#x2F;yeah.js:416</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Find features from captured image on canvas</p>
+                    
+                        </div>
+                    
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Object</span>:
+                                        <p>Promise object to find features</p>
+                    
+                                </div>
+                            </div>
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Object</span>:
-                    <p>Promise object for some processing</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_playVideo" class="method item">
-    <h3 class="name"><code>playVideo</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>src</code>
-                </li>
-                <li class="arg">
-                        <code>delay</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-        <span class="returns-inline">
-            <span class="type">Object</span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l281"><code>lib&#x2F;yeah.js:281</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>play video and initialize canvas</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">src</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <p>Video src</p>
-
+                    <div id="method_getCaptureInterval" class="method item">
+                        <h3 class="name"><code>getCaptureInterval</code></h3>
+                    
+                            <span class="paren">()</span>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Number</span>
+                            </span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l188"><code>lib&#x2F;yeah.js:188</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Get capture interval</p>
+                    
+                        </div>
+                    
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Number</span>:
+                                        <p>Capture interval</p>
+                    
+                                </div>
+                            </div>
+                    
                     </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">delay</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>Delay for copying height and width from video element</p>
-
+                    <div id="method_getSensitivity" class="method item">
+                        <h3 class="name"><code>getSensitivity</code></h3>
+                    
+                            <span class="paren">()</span>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Number</span>
+                            </span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l208"><code>lib&#x2F;yeah.js:208</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Get sensitivity</p>
+                    
+                        </div>
+                    
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Number</span>:
+                                        <p>Sensitivity</p>
+                    
+                                </div>
+                            </div>
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Object</span>:
-                    <p>Promise object</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_setCaptureInterval" class="method item">
-    <h3 class="name"><code>setCaptureInterval</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>captureInterval</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l198"><code>lib&#x2F;yeah.js:198</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Set capture interval</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">captureInterval</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>Capture interval to be set</p>
-
+                    <div id="method_isAutoAdjustSensitivity" class="method item">
+                        <h3 class="name"><code>isAutoAdjustSensitivity</code></h3>
+                    
+                            <span class="paren">()</span>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Boolean</span>
+                            </span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l251"><code>lib&#x2F;yeah.js:251</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Get flag for auto sensitivity adjustment</p>
+                    
+                        </div>
+                    
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Boolean</span>:
+                                        <p>Flag for auto sensitivity adjustment</p>
+                    
+                                </div>
+                            </div>
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_setCustomYeahCalculator" class="method item">
-    <h3 class="name"><code>setCustomYeahCalculator</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>func</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l367"><code>lib&#x2F;yeah.js:367</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Set custom yeah calculator</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">func</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                        <p>Customized yeah calculator</p>
-
+                    <div id="method_isShowCapturePanel" class="method item">
+                        <h3 class="name"><code>isShowCapturePanel</code></h3>
+                    
+                            <span class="paren">()</span>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Boolean</span>
+                            </span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l230"><code>lib&#x2F;yeah.js:230</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Get flag for showing capture panel</p>
+                    
+                        </div>
+                    
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Boolean</span>:
+                                        <p>Flag for show capture panel</p>
+                    
+                                </div>
+                            </div>
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_setIsAutoAdjustSensitivity" class="method item">
-    <h3 class="name"><code>setIsAutoAdjustSensitivity</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>bool</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l261"><code>lib&#x2F;yeah.js:261</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Set flag for auto sensitivity adjustment</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">bool</code>
-                        <span class="type">Boolean</span>
-
-
-                    <div class="param-description">
-                        <p>Flag to be set</p>
-
+                    <div id="method_isVideoPaused" class="method item private">
+                        <h3 class="name"><code>isVideoPaused</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>videoElm</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Boolean</span>
+                            </span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l45"><code>lib&#x2F;yeah.js:45</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Get flag for video playing status
+                    <a href="http://www.w3schools.com/TagS/ref_av_dom.asp">http://www.w3schools.com/TagS/ref_av_dom.asp</a></p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">videoElm</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Video element</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Boolean</span>:
+                                        <p>Flag for video playing status (stop: true, playing: false)</p>
+                    
+                                </div>
+                            </div>
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_setIsShowCapturePanel" class="method item">
-    <h3 class="name"><code>setIsShowCapturePanel</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>bool</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l240"><code>lib&#x2F;yeah.js:240</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Set flag for showing capture panel</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">bool</code>
-                        <span class="type">Boolean</span>
-
-
-                    <div class="param-description">
-                        <p>Flag to be set</p>
-
+                    <div id="method_pEmit" class="method item private">
+                        <h3 class="name"><code>pEmit</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>func</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Object</span>
+                            </span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l72"><code>lib&#x2F;yeah.js:72</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Promise to wrap processing</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">func</code>
+                                            <span class="type">Function</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Function to be wrapped by Promise</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Object</span>:
+                                        <p>Promise object for some processing</p>
+                    
+                                </div>
+                            </div>
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_setMarkerSize" class="method item">
-    <h3 class="name"><code>setMarkerSize</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>markerSize</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l271"><code>lib&#x2F;yeah.js:271</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Set marker size</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">markerSize</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>Marker size to be set</p>
-
+                    <div id="method_playVideo" class="method item">
+                        <h3 class="name"><code>playVideo</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>src</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>delay</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Object</span>
+                            </span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l281"><code>lib&#x2F;yeah.js:281</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>play video and initialize canvas</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">src</code>
+                                            <span class="type">String</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Video src</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">delay</code>
+                                            <span class="type">Number</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Delay for copying height and width from video element</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Object</span>:
+                                        <p>Promise object</p>
+                    
+                                </div>
+                            </div>
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_SetOptions" class="method item">
-    <h3 class="name"><code>SetOptions</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>options</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-        <span class="returns-inline">
-            <span class="type">Object</span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l139"><code>lib&#x2F;yeah.js:139</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Set options</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">options</code>
-                        <span class="type">Object</span>
-
-
-                    <div class="param-description">
-                        <p>Options to be set</p>
-
+                    <div id="method_setCaptureInterval" class="method item">
+                        <h3 class="name"><code>setCaptureInterval</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>captureInterval</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l198"><code>lib&#x2F;yeah.js:198</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Set capture interval</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">captureInterval</code>
+                                            <span class="type">Number</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Capture interval to be set</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type">Object</span>:
-                    <p>Accepted options</p>
-
-            </div>
-        </div>
-
-
-</div>
-<div id="method_setSensitivity" class="method item">
-    <h3 class="name"><code>setSensitivity</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>sensitivity</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l218"><code>lib&#x2F;yeah.js:218</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Update sensitivity</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">sensitivity</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>Sensitivity to be set</p>
-
+                    <div id="method_setCustomYeahCalculator" class="method item">
+                        <h3 class="name"><code>setCustomYeahCalculator</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>func</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l367"><code>lib&#x2F;yeah.js:367</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Set custom yeah calculator</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">func</code>
+                                            <span class="type">Function</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Customized yeah calculator</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_setVideoSrc" class="method item">
-    <h3 class="name"><code>setVideoSrc</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>src</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l177"><code>lib&#x2F;yeah.js:177</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Set video src</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">src</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                        <p>Video source url</p>
-
+                    <div id="method_setIsAutoAdjustSensitivity" class="method item">
+                        <h3 class="name"><code>setIsAutoAdjustSensitivity</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>bool</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l261"><code>lib&#x2F;yeah.js:261</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Set flag for auto sensitivity adjustment</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">bool</code>
+                                            <span class="type">Boolean</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Flag to be set</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_startCaptureVideo" class="method item">
-    <h3 class="name"><code>startCaptureVideo</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>successCallback</code>
-                </li>
-                <li class="arg">
-                        <code>failureCallback</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l320"><code>lib&#x2F;yeah.js:320</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Start capturing video element to canvas</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">successCallback</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                        <p>Callback after getting capture data</p>
-
+                    <div id="method_setIsShowCapturePanel" class="method item">
+                        <h3 class="name"><code>setIsShowCapturePanel</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>bool</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l240"><code>lib&#x2F;yeah.js:240</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Set flag for showing capture panel</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">bool</code>
+                                            <span class="type">Boolean</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Flag to be set</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                    
                     </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">failureCallback</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                        <p>Callback for getting error for each capture loop</p>
-
+                    <div id="method_setMarkerSize" class="method item">
+                        <h3 class="name"><code>setMarkerSize</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>markerSize</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l271"><code>lib&#x2F;yeah.js:271</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Set marker size</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">markerSize</code>
+                                            <span class="type">Number</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Marker size to be set</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                    
                     </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_stopCaptureVideo" class="method item">
-    <h3 class="name"><code>stopCaptureVideo</code></h3>
-
-        <span class="paren">()</span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_yeah.js.html#l309"><code>lib&#x2F;yeah.js:309</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Stop capturing video element</p>
-
-    </div>
-
-
-
-
-</div>
+                    <div id="method_SetOptions" class="method item">
+                        <h3 class="name"><code>SetOptions</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>options</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Object</span>
+                            </span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l139"><code>lib&#x2F;yeah.js:139</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Set options</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">options</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Options to be set</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Object</span>:
+                                        <p>Accepted options</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
+                    <div id="method_setSensitivity" class="method item">
+                        <h3 class="name"><code>setSensitivity</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>sensitivity</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l218"><code>lib&#x2F;yeah.js:218</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Update sensitivity</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">sensitivity</code>
+                                            <span class="type">Number</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Sensitivity to be set</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                    
+                    </div>
+                    <div id="method_setVideoSrc" class="method item">
+                        <h3 class="name"><code>setVideoSrc</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>src</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l177"><code>lib&#x2F;yeah.js:177</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Set video src</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">src</code>
+                                            <span class="type">String</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Video source url</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                    
+                    </div>
+                    <div id="method_startCaptureVideo" class="method item">
+                        <h3 class="name"><code>startCaptureVideo</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>successCallback</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>failureCallback</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l320"><code>lib&#x2F;yeah.js:320</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Start capturing video element to canvas</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">successCallback</code>
+                                            <span class="type">Function</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Callback after getting capture data</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">failureCallback</code>
+                                            <span class="type">Function</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Callback for getting error for each capture loop</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                    
+                    </div>
+                    <div id="method_stopCaptureVideo" class="method item">
+                        <h3 class="name"><code>stopCaptureVideo</code></h3>
+                    
+                            <span class="paren">()</span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l309"><code>lib&#x2F;yeah.js:309</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Stop capturing video element</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
             </div>
 
 
@@ -1529,13 +1519,10 @@
         </div>
     </div>
 </div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
 <script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
 <script>prettyPrint();</script>
-<script src="../assets/js/yui-prettify.js"></script>
-<script src="../assets/../api.js"></script>
-<script src="../assets/js/api-filter.js"></script>
-<script src="../assets/js/api-list.js"></script>
-<script src="../assets/js/api-search.js"></script>
-<script src="../assets/js/apidocs.js"></script>
 </body>
 </html>
