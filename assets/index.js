@@ -35,14 +35,12 @@
         },
         captureDanceMovie: function() {
             videoElm.controls = true;
-            yeah.setVideoSrc('./assets/media/kazuhiro.mp4');
-            yeah.initCanvasByVideo();
+            yeah.playVideo('./assets/media/kazuhiro.mp4');
             myStream.getTracks()[0].stop();
         },
         captureGameMovie: function() {
             videoElm.controls = true;
-            yeah.setVideoSrc('./assets/media/umehara.mp4');
-            yeah.initCanvasByVideo();
+            yeah.playVideo('./assets/media/umehara.mp4');
             myStream.getTracks()[0].stop();
         }
     };
@@ -171,8 +169,7 @@
     function turnOnVideo() {
         navigator.getUserMedia({ audio: false, video: videoConstraints }, function(stream) {
             myStream = stream;
-            yeah.setVideoSrc(URL.createObjectURL(myStream));
-            yeah.initCanvasByVideo(2000);
+            yeah.playVideo(URL.createObjectURL(myStream), 2000);
         }, function() {});
     }
 
