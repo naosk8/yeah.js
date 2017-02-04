@@ -39,13 +39,16 @@ describe("application", function() {
         });
     });
     describe('initCanvasByVideo', function() {
-        it('executable without error', function() {
+        it('executable without error', function(done) {
             let videoElm = document.createElement('video');
             document.body.appendChild(videoElm);
             yeah.setVideoElement(videoElm);
             yeah.setVideoSrc('../assets/media/kazuhiro.mp4');
-            yeah.initCanvasByVideo();
-            assert(true);
+            let p = yeah.initCanvasByVideo();
+            p.then(() => {
+                assert(true);
+                done();
+            });
         });
     });
     describe('option setter + getter', function() {
@@ -141,5 +144,128 @@ describe("application", function() {
             yeah.clearLastCaptureInfo();
             assert(true);
         });
+    });
+    describe('fillTrackedPointsOnCanvas', function() {
+        it('executable without error', function() {
+            let trackedData = {
+                cornerList: [0, 0, 1, 1, 2, 2, 3, 3, 4, 4],
+                matchList: [
+                    {keypoint1: [0, 0]}, {keypoint1: [1, 1]}, {keypoint1: [2, 2]}, {keypoint1: [3, 3]}, {keypoint1: [4, 4]}
+                ]
+            }
+            yeah.setIsShowCapturePanel(false);
+            yeah.fillTrackedPointsOnCanvas(trackedData);
+            assert(true);
+        });
+    });
+    describe('startCaptureVideo', function() {
+        this.timeout(5000);
+        it('first interval', function(done) {
+            yeah.setIsShowCapturePanel(false);
+            yeah.startCaptureVideo(function(data) {
+                yeah.stopCaptureVideo();
+                assert.equal(data.cornerList.length, 0);
+                assert.equal(data.matchList.length, 0);
+                assert.equal(data.matchRate, null);
+                assert.equal(data.time, 0);
+                assert.equal(data.isSensitivityAdjusted, false);
+                assert.equal(data.yeah, null);
+                done();
+            }, function(error) {
+                console.log(error);
+            });
+        });
+
+        it('interval existence', function(done) {
+            yeah.setIsShowCapturePanel(false);
+            yeah.setCaptureInterval(1000);
+            let calledCnt = 0;
+            yeah.startCaptureVideo(function(data) {
+                calledCnt++;
+            }, function(error) {
+                console.log(error);
+            });
+            setTimeout(function() {
+                assert.equal(calledCnt, 2);
+                yeah.stopCaptureVideo();
+                done();
+            }, 3000);
+        });
+    });
+    describe('stopCaptureVideo', function() {
+        it('executable without error', function(done) {
+            let calledCnt = 0;
+            yeah.setIsShowCapturePanel(false);
+            yeah.startCaptureVideo(function(data) {
+                yeah.stopCaptureVideo();
+                calledCnt++;
+            }, function(error) {
+                console.log(error);
+            });
+            setTimeout(function() {
+                assert.equal(calledCnt, 1);
+                done();
+            }, 2000);
+            this.timeout(3000);
+        });
+    });
+    describe('findFeatures', function() {
+        it('executable without error', function(done) {
+            let p = yeah.findFeatures();
+            p.then((data) => {
+                assert.equal(data.cornerList.length, 0);
+                assert.equal(data.matchList.length, 0);
+                assert.equal(data.matchRate, null);
+                done();
+            });
+        });
+    });
+    describe('autoAdjustSensitivity', function() {
+        it('auto adjust off', function() {
+            yeah.setIsAutoAdjustSensitivity(false);
+            let isUpdated = yeah.autoAdjustSensitivity(10000);
+            assert(!isUpdated);
+        });
+
+        it('auto adjust on: corner=401 x sensitivity=0 ', function() {
+            yeah.setIsAutoAdjustSensitivity(true);
+            yeah.setSensitivity(0);
+            let isUpdated = yeah.autoAdjustSensitivity(401);
+            assert(!isUpdated);
+            assert.equal(yeah.getSensitivity(), 0);
+        });
+
+        it('auto adjust on: corner=401 x sensitivity=1 ', function() {
+            yeah.setIsAutoAdjustSensitivity(true);
+            yeah.setSensitivity(1);
+            let isUpdated = yeah.autoAdjustSensitivity(401);
+            assert(isUpdated);
+            assert.equal(yeah.getSensitivity(), 0);
+        });
+
+        it('auto adjust on: corner=400 x sensitivity=100 ', function() {
+            yeah.setIsAutoAdjustSensitivity(true);
+            yeah.setSensitivity(100);
+            let isUpdated = yeah.autoAdjustSensitivity(400);
+            assert(!isUpdated);
+            assert.equal(yeah.getSensitivity(), 100);
+        });
+
+        it('auto adjust on: corner=250 x sensitivity=0 ', function() {
+            yeah.setIsAutoAdjustSensitivity(true);
+            yeah.setSensitivity(0);
+            let isUpdated = yeah.autoAdjustSensitivity(250);
+            assert(!isUpdated);
+            assert.equal(yeah.getSensitivity(), 0);
+        });
+
+        it('auto adjust on: corner=249 x sensitivity=0 ', function() {
+            yeah.setIsAutoAdjustSensitivity(true);
+            yeah.setSensitivity(0);
+            let isUpdated = yeah.autoAdjustSensitivity(249);
+            assert(isUpdated);
+            assert.equal(yeah.getSensitivity(), 2);
+        });
+
     });
 });
