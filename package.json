@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run lint && npm run cover",
     "lint": "eslint ./lib/*.js",
-    "cover": "NODE_ENV=test istanbul cover --report html --report text _mocha",
+    "cover": "NODE_ENV=test istanbul cover _mocha --report text --report html --report lcovonly -- -R spec && codecov -t 8d9fed84-f130-482a-a47d-63bde273ec81",
     "mocha": "NODE_ENV=test mocha"
   },
   "repository": {
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/naosk8/yeah.js#readme",
   "devDependencies": {
+    "codecov": "^1.0.1",
     "eslint": "^3.14.1",
     "istanbul": "^0.4.5",
     "jsdom": "^9.9.1",
