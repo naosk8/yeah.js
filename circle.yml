@@ -1,0 +1,4 @@
+# General setting for CircleCI
+general:
+  artifacts:
+    - "coverage"
