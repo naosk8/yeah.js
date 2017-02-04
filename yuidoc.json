@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "url": "https://github.com/naosk8/yeah.js",
   "options": {
-    "paths": "lib",
-    "outdir": "./docs"
+    "paths":    "lib",
+    "outdir":   "./docs",
+    "themedir": "node_modules/yuidoc-bootstrap-theme",
+    "helpers":  [ "node_modules/yuidoc-bootstrap-theme/helpers/helpers.js" ]
   }
 }
