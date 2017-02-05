@@ -27,7 +27,7 @@
             "plugin_for": [],
             "extension_for": [],
             "file": "lib/yeah.js",
-            "line": 91,
+            "line": 129,
             "description": "A library to convert video to its excitement score."
         }
     },
@@ -98,14 +98,46 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 97,
+            "line": 91,
+            "description": "Fill marker on tracked corners and matched points",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "fillTrackedPointsOnCanvas",
+            "params": [
+                {
+                    "name": "canvasContext",
+                    "description": "Canvas element",
+                    "type": "Object"
+                },
+                {
+                    "name": "trackedData",
+                    "description": "Tracked data points",
+                    "type": "Object"
+                },
+                {
+                    "name": "scaleInverse",
+                    "description": "Inversed scale",
+                    "type": "Number"
+                },
+                {
+                    "name": "options",
+                    "description": "Options of Yeah class",
+                    "type": "Object"
+                }
+            ],
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 135,
             "description": "constructor of yeah.js class",
             "is_constructor": 1,
             "class": "Yeah"
         },
         {
             "file": "lib/yeah.js",
-            "line": 125,
+            "line": 163,
             "description": "Create canvas",
             "itemtype": "method",
             "name": "createCanvas",
@@ -113,7 +145,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 139,
+            "line": 177,
             "description": "Set options",
             "itemtype": "method",
             "name": "SetOptions",
@@ -124,15 +156,23 @@
                     "type": "Object"
                 }
             ],
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 201,
+            "description": "Get options",
+            "itemtype": "method",
+            "name": "GetOptions",
             "return": {
-                "description": "Accepted options",
+                "description": "Options set to Yeah class",
                 "type": "Object"
             },
             "class": "Yeah"
         },
         {
             "file": "lib/yeah.js",
-            "line": 165,
+            "line": 211,
             "description": "Set video element",
             "params": [
                 {
@@ -145,7 +185,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 177,
+            "line": 223,
             "description": "Set video src",
             "itemtype": "method",
             "name": "setVideoSrc",
@@ -160,7 +200,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 188,
+            "line": 234,
             "description": "Get capture interval",
             "itemtype": "method",
             "name": "getCaptureInterval",
@@ -172,7 +212,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 198,
+            "line": 244,
             "description": "Set capture interval",
             "itemtype": "method",
             "name": "setCaptureInterval",
@@ -187,7 +227,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 208,
+            "line": 254,
             "description": "Get sensitivity",
             "itemtype": "method",
             "name": "getSensitivity",
@@ -199,7 +239,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 218,
+            "line": 264,
             "description": "Update sensitivity",
             "itemtype": "method",
             "name": "setSensitivity",
@@ -214,7 +254,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 230,
+            "line": 276,
             "description": "Get flag for showing capture panel",
             "itemtype": "method",
             "name": "isShowCapturePanel",
@@ -226,7 +266,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 240,
+            "line": 286,
             "description": "Set flag for showing capture panel",
             "itemtype": "method",
             "name": "setIsShowCapturePanel",
@@ -241,7 +281,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 251,
+            "line": 297,
             "description": "Get flag for auto sensitivity adjustment",
             "itemtype": "method",
             "name": "isAutoAdjustSensitivity",
@@ -253,7 +293,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 261,
+            "line": 307,
             "description": "Set flag for auto sensitivity adjustment",
             "itemtype": "method",
             "name": "setIsAutoAdjustSensitivity",
@@ -268,7 +308,19 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 271,
+            "line": 317,
+            "description": "Get marker size",
+            "itemtype": "method",
+            "name": "getMarkerSize",
+            "return": {
+                "description": "Marker size",
+                "type": "Number"
+            },
+            "class": "Yeah"
+        },
+        {
+            "file": "lib/yeah.js",
+            "line": 327,
             "description": "Set marker size",
             "itemtype": "method",
             "name": "setMarkerSize",
@@ -283,7 +335,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 281,
+            "line": 337,
             "description": "play video and initialize canvas",
             "itemtype": "method",
             "name": "playVideo",
@@ -307,7 +359,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 309,
+            "line": 365,
             "description": "Stop capturing video element",
             "itemtype": "method",
             "name": "stopCaptureVideo",
@@ -315,7 +367,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 320,
+            "line": 376,
             "description": "Start capturing video element to canvas",
             "itemtype": "method",
             "name": "startCaptureVideo",
@@ -335,7 +387,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 367,
+            "line": 422,
             "description": "Set custom yeah calculator",
             "itemtype": "method",
             "name": "setCustomYeahCalculator",
@@ -350,7 +402,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 377,
+            "line": 432,
             "description": "Calculate yeah score from time series data set",
             "itemtype": "method",
             "name": "calcYeah",
@@ -374,7 +426,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 405,
+            "line": 460,
             "description": "Clear last capture info",
             "itemtype": "method",
             "name": "clearLastCaptureInfo",
@@ -382,7 +434,7 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 416,
+            "line": 471,
             "description": "Find features from captured image on canvas",
             "itemtype": "method",
             "name": "findFeatures",
@@ -394,35 +446,25 @@
         },
         {
             "file": "lib/yeah.js",
-            "line": 463,
-            "description": "Fill marker on tracked corners and matched points",
+            "line": 521,
+            "description": "Calculate adjusted sensitivity with found corner size",
             "itemtype": "method",
-            "name": "fillTrackedPointsOnCanvas",
-            "params": [
-                {
-                    "name": "trackedData",
-                    "description": "Tracked data points",
-                    "type": "Object"
-                }
-            ],
-            "class": "Yeah"
-        },
-        {
-            "file": "lib/yeah.js",
-            "line": 497,
-            "description": "Auto adjustment for sensitivity with found corner size",
-            "itemtype": "method",
-            "name": "adjustSensitivity",
+            "name": "calcAdjustedSensitivity",
             "params": [
                 {
                     "name": "cornerCnt",
                     "description": "Found corner size",
                     "type": "Number"
+                },
+                {
+                    "name": "options",
+                    "description": "Options of Yeah class",
+                    "type": "Object"
                 }
             ],
             "return": {
-                "description": "Result flag for auto adjustment",
-                "type": "Boolean"
+                "description": "Calculated sensitivity",
+                "type": "Number"
             },
             "class": "Yeah"
         }
@@ -430,11 +472,11 @@
     "warnings": [
         {
             "message": "Missing item type\nconstructor of yeah.js class",
-            "line": " lib/yeah.js:97"
+            "line": " lib/yeah.js:135"
         },
         {
             "message": "Missing item type\nSet video element",
-            "line": " lib/yeah.js:165"
+            "line": " lib/yeah.js:211"
         }
     ]
 }

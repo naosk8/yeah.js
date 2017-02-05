@@ -184,6 +184,44 @@
     }
 
     /**
+     * Fill marker on tracked corners and matched points
+     *
+     * @private
+     * @method fillTrackedPointsOnCanvas
+     * @param {Object} canvasContext Canvas element
+     * @param {Object} trackedData Tracked data points
+     * @param {Number} scaleInverse Inversed scale
+     * @param {Object} options Options of Yeah class
+     */
+    function fillTrackedPointsOnCanvas(canvasContext, trackedData, scaleInverse, options) {
+        if (!options.isShowCapturePanel) {
+            return;
+        }
+        canvasContext.fillStyle = &#x27;#f00&#x27;;
+        let loopCnt = trackedData.cornerList.length;
+        // eslint-disable-next-line
+        while ((loopCnt-=2)&gt;=0) {
+            canvasContext.fillRect(
+                trackedData.cornerList[loopCnt] * scaleInverse,
+                // eslint-disable-next-line
+                trackedData.cornerList[loopCnt + 1] * scaleInverse,
+                options.markerSize, options.markerSize
+            );
+        }
+        canvasContext.fillStyle = &#x27;#0f0&#x27;;
+        loopCnt = trackedData.matchList.length;
+        let match;
+        // eslint-disable-next-line
+        while ((loopCnt-=2)&gt;=0) { // Skip drawing the half of them.
+            match = trackedData.matchList[loopCnt].keypoint1;
+            canvasContext.fillRect(
+                match[0] * scaleInverse, match[1] * scaleInverse,
+                options.markerSize, options.markerSize
+            );
+        }
+    }
+
+    /**
      * A library to convert video to its excitement score.
      *
      * @class Yeah
@@ -236,7 +274,6 @@
          *
          * @method SetOptions
          * @param {Object} options Options to be set
-         * @return {Object} Accepted options
          */
         setOptions(options) {
             if (options.captureInterval !== undefined) {
@@ -254,6 +291,15 @@
             if (options.markerSize !== undefined) {
                 this.setMarkerSize(options.markerSize);
             }
+        }
+
+        /**
+         * Get options
+         *
+         * @method GetOptions
+         * @return {Object} Options set to Yeah class
+         */
+        getOptions() {
             return this.options;
         }
 
@@ -364,6 +410,16 @@
         }
 
         /**
+         * Get marker size
+         *
+         * @method getMarkerSize
+         * @return {Number} Marker size
+         */
+        getMarkerSize() {
+            return this.options.markerSize;
+        }
+
+        /**
          * Set marker size
          *
          * @method setMarkerSize
@@ -396,7 +452,7 @@
                 this.scaleInverse = INVERSE_BASE / this.scale;
                 this.calcCanvas.width = this.userCanvas.width * this.scale;
                 this.calcCanvas.height = this.userCanvas.height * this.scale;
-                this.videoElm.style.opacity = this.options.isShowCapturePanel ? OVER_WRAPPED_OPACITY : DEFAULT_OPACITY;
+                this.videoElm.style.opacity = this.isShowCapturePanel() ? OVER_WRAPPED_OPACITY : DEFAULT_OPACITY;
                 this.userCanvas.style.opacity = DEFAULT_OPACITY;
             });
         }
@@ -423,7 +479,7 @@
             this.stopCaptureVideo();
             this.captureIntervalTimer = setInterval(() =&gt; {
                 if (!isVideoPaused(this.videoElm)) {
-                    if (this.options.isShowCapturePanel) {
+                    if (this.isShowCapturePanel()) {
                         this.userCtx.drawImage(this.videoElm, CAPTURE_OFFSET_LEFT, CAPTURE_OFFSET_TOP, this.videoElm.clientWidth, this.videoElm.clientHeight);
                     }
                     this.calcCtx.drawImage(this.videoElm, CAPTURE_OFFSET_LEFT, CAPTURE_OFFSET_TOP, this.calcCanvas.width, this.calcCanvas.height);
@@ -434,18 +490,17 @@
                 .then(() =&gt; this.findFeatures())
                 .then((data) =&gt; pEmit(() =&gt; {
                     data.time = data.now - this.startTime;
+                    data.yeah = null;
                     if (!isVideoPaused(this.videoElm)) {
-                        data.isSensitivityAdjusted = this.adjustSensitivity(data.cornerList.length);
+                        this.setSensitivity(this.calcAdjustedSensitivity(data.cornerList.length, this.options));
                         data.yeah = this.calcYeah(data.matchRate, this.tsDataList);
-                        this.fillTrackedPointsOnCanvas(data);
+                        fillTrackedPointsOnCanvas(this.userCtx, data, this.scaleInverse, this.options);
                         this.tsDataList.push(data);
-                    } else {
-                        data.isSensitivityAdjusted = false;
-                        data.yeah = null;
+                        if (this.tsDataList.length &gt; MIN_DATA_TO_CALC_YEAH) {
+                            this.tsDataList.shift();
+                        }
                     }
-                    if (this.tsDataList.length &gt; MIN_DATA_TO_CALC_YEAH) {
-                        this.tsDataList.shift();
-                    }
+                    data.sensitivity = this.getSensitivity();
                     return data;
                 })).then((data) =&gt; {
                     successCallback(data);
@@ -456,7 +511,7 @@
                         throw new Error(&#x27;yeah.js: caught an error in captureIntervalTimer.&#x27;);
                     }
                 });
-            }, this.options.captureInterval);
+            }, this.getCaptureInterval());
         }
 
         /**
@@ -530,8 +585,11 @@
                     };
                 }
 
-                tracking.Fast.THRESHOLD = MAX_TRACKING_FAST_THRESHOLD - this.options.sensitivity;
-                let imageData = this.calcCtx.getImageData(CAPTURE_OFFSET_LEFT, CAPTURE_OFFSET_TOP, this.calcCanvas.width, this.calcCanvas.height);
+                tracking.Fast.THRESHOLD = MAX_TRACKING_FAST_THRESHOLD - this.getSensitivity();
+                let imageData = this.calcCtx.getImageData(
+                    CAPTURE_OFFSET_LEFT, CAPTURE_OFFSET_TOP,
+                    this.calcCtx.canvas.width, this.calcCtx.canvas.height
+                );
                 let gray = tracking.Image.grayscale(imageData.data, imageData.width, imageData.height);
                 let cornerList = tracking.Fast.findCorners(gray, imageData.width, imageData.height);
 
@@ -556,67 +614,32 @@
         }
 
         /**
-         * Fill marker on tracked corners and matched points
+         * Calculate adjusted sensitivity with found corner size
          *
-         * @method fillTrackedPointsOnCanvas
-         * @param {object} trackedData Tracked data points
-         */
-        fillTrackedPointsOnCanvas(trackedData) {
-            if (!this.options.isShowCapturePanel) {
-                return;
-            }
-            this.userCtx.fillStyle = &#x27;#f00&#x27;;
-            let loopCnt = trackedData.cornerList.length;
-            // eslint-disable-next-line
-            while ((loopCnt-=2)&gt;=0) {
-                this.userCtx.fillRect(
-                    trackedData.cornerList[loopCnt] * this.scaleInverse,
-                    // eslint-disable-next-line
-                    trackedData.cornerList[loopCnt + 1] * this.scaleInverse,
-                    this.options.markerSize, this.options.markerSize
-                );
-            }
-            this.userCtx.fillStyle = &#x27;#0f0&#x27;;
-            loopCnt = trackedData.matchList.length;
-            let match;
-            // eslint-disable-next-line
-            while ((loopCnt-=2)&gt;=0) { // Skip drawing the half of them.
-                match = trackedData.matchList[loopCnt].keypoint1;
-                this.userCtx.fillRect(
-                    match[0] * this.scaleInverse, match[1] * this.scaleInverse,
-                    this.options.markerSize, this.options.markerSize
-                );
-            }
-        }
-
-        /**
-         * Auto adjustment for sensitivity with found corner size
-         *
-         * @method adjustSensitivity
+         * @method calcAdjustedSensitivity
          * @param {Number} cornerCnt Found corner size
-         * @return {Boolean} Result flag for auto adjustment
+         * @param {Object} options Options of Yeah class
+         * @return {Number} Calculated sensitivity
          */
-        adjustSensitivity(cornerCnt) {
-            if (!this.options.isAutoAdjustSensitivity) {
-                return false;
+        calcAdjustedSensitivity(cornerCnt, options) {
+            let adjustedSensitivity = options.sensitivity;
+            if (!options.isAutoAdjustSensitivity) {
+                return adjustedSensitivity;
             }
-            let isUpdate = false;
-            if (cornerCnt &gt; MAX_MODERATE_CORNER_COUNT &amp;&amp; this.options.sensitivity &gt; MIN_SENSITIVITY) {
-                this.options.sensitivity -= Math.max(
+            if (cornerCnt &gt; MAX_MODERATE_CORNER_COUNT &amp;&amp; options.sensitivity &gt; MIN_SENSITIVITY) {
+                adjustedSensitivity = adjustedSensitivity - Math.max(
                     MIN_SENSITIVITY_AUTO_ADJUSTMENT,
                     Math.ceil((cornerCnt - MAX_MODERATE_CORNER_COUNT) / MAX_SENSITIVITY_ADJUST_DENOMINATOR)
                 );
-                this.options.sensitivity = Math.max(MIN_SENSITIVITY, this.options.sensitivity);
-                isUpdate = true;
-            } else if (cornerCnt &lt; MIN_MODERATE_CORNER_COUNT &amp;&amp; this.options.sensitivity &lt; MAX_SENSITIVITY) {
-                this.options.sensitivity += Math.max(
+                adjustedSensitivity = Math.max(MIN_SENSITIVITY, adjustedSensitivity);
+            } else if (cornerCnt &lt; MIN_MODERATE_CORNER_COUNT &amp;&amp; options.sensitivity &lt; MAX_SENSITIVITY) {
+                adjustedSensitivity = adjustedSensitivity + Math.max(
                     MIN_SENSITIVITY_AUTO_ADJUSTMENT,
                     Math.ceil((MIN_MODERATE_CORNER_COUNT - cornerCnt) / MIN_SENSITIVITY_ADJUST_DENOMINATOR)
                 );
-                this.options.sensitivity = Math.min(MAX_SENSITIVITY, this.options.sensitivity);
-                isUpdate = true;
+                adjustedSensitivity = Math.min(MAX_SENSITIVITY, adjustedSensitivity);
             }
-            return isUpdate;
+            return adjustedSensitivity;
         }
 
     }

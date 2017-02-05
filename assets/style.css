@@ -21,6 +21,19 @@ p {
     font-size: 1.5em;
     margin: 20px 30px;
 }
+/* http://stackoverflow.com/a/41136470/6390078 */
+video::-webkit-media-controls-fullscreen-button {
+    display:none !important;
+}
+video::-internal-media-controls-download-button {
+    display: none;
+}
+video::-webkit-media-controls-enclosure {
+    overflow: hidden;
+}
+video::-webkit-media-controls-panel {
+    width: calc(100% + 48px);
+}
 .demo-container {
     position:relative;
     text-align: center;
@@ -266,10 +279,17 @@ p {
         width: 50%;
     }
     .dg.main.a {
-        width: 90vw !important;
+        width: 85vw !important;
+        float: none;
+        margin: 0 auto;
     }
     .dg.main.a > .close-button {
-        width: 90vw !important;
+        width: 85vw !important;
+        font-size: 3vh;
+        height: 3.5vh;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        padding: 5px 0px 0px;
     }
     .dg li:not(.folder) {
         height: 35px;

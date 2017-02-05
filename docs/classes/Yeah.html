@@ -95,7 +95,7 @@
 
 
         <div class="foundat">
-            Defined in: <a href="../files/lib_yeah.js.html#l91"><code>lib&#x2F;yeah.js:91</code></a>
+            Defined in: <a href="../files/lib_yeah.js.html#l129"><code>lib&#x2F;yeah.js:129</code></a>
         </div>
 
 
@@ -124,7 +124,7 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
-                                <a href="#" data-tabid="#methods" data-anchor="#method_adjustSensitivity" data-tablink="adjustSensitivity">adjustSensitivity</a>
+                                <a href="#" data-tabid="#methods" data-anchor="#method_calcAdjustedSensitivity" data-tablink="calcAdjustedSensitivity">calcAdjustedSensitivity</a>
 
                             </li>
                             <li class="index-item method">
@@ -143,7 +143,7 @@
                                 <a href="#" data-tabid="#methods" data-anchor="#method_delayTimer" data-tablink="delayTimer">delayTimer</a>
 
                             </li>
-                            <li class="index-item method">
+                            <li class="index-item method private">
                                 <a href="#" data-tabid="#methods" data-anchor="#method_fillTrackedPointsOnCanvas" data-tablink="fillTrackedPointsOnCanvas">fillTrackedPointsOnCanvas</a>
 
                             </li>
@@ -153,6 +153,14 @@
                             </li>
                             <li class="index-item method">
                                 <a href="#" data-tabid="#methods" data-anchor="#method_getCaptureInterval" data-tablink="getCaptureInterval">getCaptureInterval</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_getMarkerSize" data-tablink="getMarkerSize">getMarkerSize</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_GetOptions" data-tablink="GetOptions">GetOptions</a>
 
                             </li>
                             <li class="index-item method">
@@ -229,19 +237,22 @@
             <div id="methods" class="tab-pane">
                 <h2 class="off-left">Methods</h2>
 
-                    <div id="method_adjustSensitivity" class="method item">
-                        <h3 class="name"><code>adjustSensitivity</code></h3>
+                    <div id="method_calcAdjustedSensitivity" class="method item">
+                        <h3 class="name"><code>calcAdjustedSensitivity</code></h3>
                     
                             <div class="args">
                                 <span class="paren">(</span><ul class="args-list inline commas">
                                     <li class="arg">
                                             <code>cornerCnt</code>
                                     </li>
+                                    <li class="arg">
+                                            <code>options</code>
+                                    </li>
                                 </ul><span class="paren">)</span>
                             </div>
                     
                             <span class="returns-inline">
-                                <span class="type">Boolean</span>
+                                <span class="type">Number</span>
                             </span>
                     
                     
@@ -253,7 +264,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l497"><code>lib&#x2F;yeah.js:497</code></a>
+                            <a href="../files/lib_yeah.js.html#l521"><code>lib&#x2F;yeah.js:521</code></a>
                             </p>
                     
                     
@@ -261,7 +272,7 @@
                         </div>
                     
                         <div class="description">
-                            <p>Auto adjustment for sensitivity with found corner size</p>
+                            <p>Calculate adjusted sensitivity with found corner size</p>
                     
                         </div>
                     
@@ -280,6 +291,17 @@
                                         </div>
                     
                                     </li>
+                                    <li class="param">
+                                            <code class="param-name">options</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Options of Yeah class</p>
+                    
+                                        </div>
+                    
+                                    </li>
                                 </ul>
                             </div>
                     
@@ -287,8 +309,8 @@
                                 <h4>Returns:</h4>
                     
                                 <div class="returns-description">
-                                            <span class="type">Boolean</span>:
-                                        <p>Result flag for auto adjustment</p>
+                                            <span class="type">Number</span>:
+                                        <p>Calculated sensitivity</p>
                     
                                 </div>
                             </div>
@@ -321,7 +343,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l377"><code>lib&#x2F;yeah.js:377</code></a>
+                            <a href="../files/lib_yeah.js.html#l432"><code>lib&#x2F;yeah.js:432</code></a>
                             </p>
                     
                     
@@ -388,7 +410,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l405"><code>lib&#x2F;yeah.js:405</code></a>
+                            <a href="../files/lib_yeah.js.html#l460"><code>lib&#x2F;yeah.js:460</code></a>
                             </p>
                     
                     
@@ -418,7 +440,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l125"><code>lib&#x2F;yeah.js:125</code></a>
+                            <a href="../files/lib_yeah.js.html#l163"><code>lib&#x2F;yeah.js:163</code></a>
                             </p>
                     
                     
@@ -499,19 +521,29 @@
                             </div>
                     
                     </div>
-                    <div id="method_fillTrackedPointsOnCanvas" class="method item">
+                    <div id="method_fillTrackedPointsOnCanvas" class="method item private">
                         <h3 class="name"><code>fillTrackedPointsOnCanvas</code></h3>
                     
                             <div class="args">
                                 <span class="paren">(</span><ul class="args-list inline commas">
                                     <li class="arg">
+                                            <code>canvasContext</code>
+                                    </li>
+                                    <li class="arg">
                                             <code>trackedData</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>scaleInverse</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>options</code>
                                     </li>
                                 </ul><span class="paren">)</span>
                             </div>
                     
                     
                     
+                            <span class="flag private">private</span>
                     
                     
                     
@@ -520,7 +552,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l463"><code>lib&#x2F;yeah.js:463</code></a>
+                            <a href="../files/lib_yeah.js.html#l91"><code>lib&#x2F;yeah.js:91</code></a>
                             </p>
                     
                     
@@ -537,12 +569,45 @@
                     
                                 <ul class="params-list">
                                     <li class="param">
+                                            <code class="param-name">canvasContext</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Canvas element</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
                                             <code class="param-name">trackedData</code>
                                             <span class="type">Object</span>
                     
                     
                                         <div class="param-description">
                                             <p>Tracked data points</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">scaleInverse</code>
+                                            <span class="type">Number</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Inversed scale</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">options</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Options of Yeah class</p>
                     
                                         </div>
                     
@@ -570,7 +635,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l416"><code>lib&#x2F;yeah.js:416</code></a>
+                            <a href="../files/lib_yeah.js.html#l471"><code>lib&#x2F;yeah.js:471</code></a>
                             </p>
                     
                     
@@ -612,7 +677,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l188"><code>lib&#x2F;yeah.js:188</code></a>
+                            <a href="../files/lib_yeah.js.html#l234"><code>lib&#x2F;yeah.js:234</code></a>
                             </p>
                     
                     
@@ -636,6 +701,90 @@
                             </div>
                     
                     </div>
+                    <div id="method_getMarkerSize" class="method item">
+                        <h3 class="name"><code>getMarkerSize</code></h3>
+                    
+                            <span class="paren">()</span>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Number</span>
+                            </span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l317"><code>lib&#x2F;yeah.js:317</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Get marker size</p>
+                    
+                        </div>
+                    
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Number</span>:
+                                        <p>Marker size</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
+                    <div id="method_GetOptions" class="method item">
+                        <h3 class="name"><code>GetOptions</code></h3>
+                    
+                            <span class="paren">()</span>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Object</span>
+                            </span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/lib_yeah.js.html#l201"><code>lib&#x2F;yeah.js:201</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Get options</p>
+                    
+                        </div>
+                    
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Object</span>:
+                                        <p>Options set to Yeah class</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
                     <div id="method_getSensitivity" class="method item">
                         <h3 class="name"><code>getSensitivity</code></h3>
                     
@@ -654,7 +803,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l208"><code>lib&#x2F;yeah.js:208</code></a>
+                            <a href="../files/lib_yeah.js.html#l254"><code>lib&#x2F;yeah.js:254</code></a>
                             </p>
                     
                     
@@ -696,7 +845,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l251"><code>lib&#x2F;yeah.js:251</code></a>
+                            <a href="../files/lib_yeah.js.html#l297"><code>lib&#x2F;yeah.js:297</code></a>
                             </p>
                     
                     
@@ -738,7 +887,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l230"><code>lib&#x2F;yeah.js:230</code></a>
+                            <a href="../files/lib_yeah.js.html#l276"><code>lib&#x2F;yeah.js:276</code></a>
                             </p>
                     
                     
@@ -922,7 +1071,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l281"><code>lib&#x2F;yeah.js:281</code></a>
+                            <a href="../files/lib_yeah.js.html#l337"><code>lib&#x2F;yeah.js:337</code></a>
                             </p>
                     
                     
@@ -995,7 +1144,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l198"><code>lib&#x2F;yeah.js:198</code></a>
+                            <a href="../files/lib_yeah.js.html#l244"><code>lib&#x2F;yeah.js:244</code></a>
                             </p>
                     
                     
@@ -1048,7 +1197,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l367"><code>lib&#x2F;yeah.js:367</code></a>
+                            <a href="../files/lib_yeah.js.html#l422"><code>lib&#x2F;yeah.js:422</code></a>
                             </p>
                     
                     
@@ -1101,7 +1250,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l261"><code>lib&#x2F;yeah.js:261</code></a>
+                            <a href="../files/lib_yeah.js.html#l307"><code>lib&#x2F;yeah.js:307</code></a>
                             </p>
                     
                     
@@ -1154,7 +1303,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l240"><code>lib&#x2F;yeah.js:240</code></a>
+                            <a href="../files/lib_yeah.js.html#l286"><code>lib&#x2F;yeah.js:286</code></a>
                             </p>
                     
                     
@@ -1207,7 +1356,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l271"><code>lib&#x2F;yeah.js:271</code></a>
+                            <a href="../files/lib_yeah.js.html#l327"><code>lib&#x2F;yeah.js:327</code></a>
                             </p>
                     
                     
@@ -1250,9 +1399,6 @@
                                 </ul><span class="paren">)</span>
                             </div>
                     
-                            <span class="returns-inline">
-                                <span class="type">Object</span>
-                            </span>
                     
                     
                     
@@ -1263,7 +1409,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l139"><code>lib&#x2F;yeah.js:139</code></a>
+                            <a href="../files/lib_yeah.js.html#l177"><code>lib&#x2F;yeah.js:177</code></a>
                             </p>
                     
                     
@@ -1293,15 +1439,6 @@
                                 </ul>
                             </div>
                     
-                            <div class="returns">
-                                <h4>Returns:</h4>
-                    
-                                <div class="returns-description">
-                                            <span class="type">Object</span>:
-                                        <p>Accepted options</p>
-                    
-                                </div>
-                            </div>
                     
                     </div>
                     <div id="method_setSensitivity" class="method item">
@@ -1325,7 +1462,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l218"><code>lib&#x2F;yeah.js:218</code></a>
+                            <a href="../files/lib_yeah.js.html#l264"><code>lib&#x2F;yeah.js:264</code></a>
                             </p>
                     
                     
@@ -1378,7 +1515,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l177"><code>lib&#x2F;yeah.js:177</code></a>
+                            <a href="../files/lib_yeah.js.html#l223"><code>lib&#x2F;yeah.js:223</code></a>
                             </p>
                     
                     
@@ -1434,7 +1571,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l320"><code>lib&#x2F;yeah.js:320</code></a>
+                            <a href="../files/lib_yeah.js.html#l376"><code>lib&#x2F;yeah.js:376</code></a>
                             </p>
                     
                     
@@ -1492,7 +1629,7 @@
                         <div class="meta">
                                     <p>
                                     Defined in
-                            <a href="../files/lib_yeah.js.html#l309"><code>lib&#x2F;yeah.js:309</code></a>
+                            <a href="../files/lib_yeah.js.html#l365"><code>lib&#x2F;yeah.js:365</code></a>
                             </p>
                     
                     
