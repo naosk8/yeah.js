@@ -12,10 +12,8 @@ body {
     background: linear-gradient(to bottom, rgba(17,17,17,1) 0%, rgba(17,17,17,1) 24%, rgba(28,28,28,1) 58%, rgba(0,0,0,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#111111', endColorstr='#000000', GradientType=0 );
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
 }
 p {
@@ -50,11 +48,7 @@ p {
 #animation-layer {
     position: absolute;
     top: 0;
-    bottom: 0;
     left: 0;
-    right: 0;
-    overflow: hidden;
-    z-index: -1;
 }
 .inner-magic-layer {
     position: absolute;
