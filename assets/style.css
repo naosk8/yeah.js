@@ -14,6 +14,7 @@ body {
     position: absolute;
     width: 100vw;
     height: 100vh;
+    margin: 0;
     overflow: hidden;
 }
 p {
@@ -40,9 +41,10 @@ p {
     position: absolute;
     opacity: 1;
     width: auto;
-    height: auto;
-    min-width: 50vw;
     max-width: 70vw;
+    height: 50vh;
+    min-height: 50vh;
+    max-height: 50vh;
     will-change: opacity;
 }
 #animation-layer {
@@ -115,7 +117,7 @@ p {
 .demo-title a {
     position: relative;
     text-decoration: none;
-    color: #fff;
+    color: transparent;
     font-family: Monoton;
 }
 /* use pseudo-element prevent from unnecessary repainting */
@@ -251,5 +253,30 @@ p {
         bottom: 50px;
         left: 5%;
         margin-left: 0px;
+    }
+    .dg {
+        font-size: 12px;
+    }
+    .dg .property-name {
+        width: 50%;
+    }
+    .dg .c {
+        width: 50%;
+    }
+    .dg.main.a {
+        width: 90vw !important;
+    }
+    .dg.main.a > .close-button {
+        width: 90vw !important;
+    }
+    .dg li:not(.folder) {
+        height: 35px;
+        line-height: 35px;
+    }
+    .dg.main .close-button {
+        background-color: #333;
+    }
+    .dg.main .close-button:hover {
+        background-color: #333;
     }
 }
