@@ -66,12 +66,8 @@ describe("application", function() {
             let videoElm = document.createElement('video');
             document.body.appendChild(videoElm);
             yeah.setVideoElement(videoElm);
-            let acceptedOptions = yeah.setOptions(options);
-            assert.equal(acceptedOptions.captureInterval, options.captureInterval);
-            assert.equal(acceptedOptions.sensitivity, options.sensitivity);
-            assert.equal(acceptedOptions.isShowCapturePanel, options.isShowCapturePanel);
-            assert.equal(acceptedOptions.isAutoAdjustSensitivity, options.isAutoAdjustSensitivity);
-            assert.equal(acceptedOptions.markerSize, options.markerSize);
+            yeah.setOptions(options);
+            assert(true);
         });
         it ('get all options', function() {
             assert.equal(yeah.getCaptureInterval(), options.captureInterval);
@@ -79,6 +75,15 @@ describe("application", function() {
             assert.equal(yeah.getCaptureInterval(), options.captureInterval);
             assert.equal(yeah.isAutoAdjustSensitivity(), options.isAutoAdjustSensitivity);
             assert.equal(yeah.isShowCapturePanel(), options.isShowCapturePanel);
+            assert.equal(yeah.getMarkerSize(), options.markerSize);
+
+            let opts = yeah.getOptions();
+            assert.equal(opts.captureInterval, options.captureInterval);
+            assert.equal(opts.sensitivity, options.sensitivity);
+            assert.equal(opts.captureInterval, options.captureInterval);
+            assert.equal(opts.isAutoAdjustSensitivity, options.isAutoAdjustSensitivity);
+            assert.equal(opts.isShowCapturePanel, options.isShowCapturePanel);
+            assert.equal(opts.markerSize, options.markerSize);
         });
         it ('sensitivity threshold check', function() {
             yeah.setSensitivity(-1);
@@ -148,22 +153,10 @@ describe("application", function() {
             assert(true);
         });
     });
-    describe('fillTrackedPointsOnCanvas', function() {
-        it('executable without error', function() {
-            let trackedData = {
-                cornerList: [0, 0, 1, 1, 2, 2, 3, 3, 4, 4],
-                matchList: [
-                    {keypoint1: [0, 0]}, {keypoint1: [1, 1]}, {keypoint1: [2, 2]}, {keypoint1: [3, 3]}, {keypoint1: [4, 4]}
-                ]
-            }
-            yeah.setIsShowCapturePanel(false);
-            yeah.fillTrackedPointsOnCanvas(trackedData);
-            assert(true);
-        });
-    });
     describe('startCaptureVideo', function() {
         this.timeout(5000);
         it('first interval', function(done) {
+            let sensitivity = yeah.getSensitivity();
             yeah.setIsShowCapturePanel(false);
             yeah.startCaptureVideo(function(data) {
                 yeah.stopCaptureVideo();
@@ -171,7 +164,7 @@ describe("application", function() {
                 assert.equal(data.matchList.length, 0);
                 assert.equal(data.matchRate, null);
                 assert.equal(data.time, 0);
-                assert.equal(data.isSensitivityAdjusted, false);
+                assert.equal(data.sensitivity, sensitivity);
                 assert.equal(data.yeah, null);
                 done();
             }, function(error) {
@@ -223,51 +216,62 @@ describe("application", function() {
             });
         });
     });
-    describe('adjustSensitivity', function() {
+    describe('calcAdjustedSensitivity', function() {
+        let options = yeah.getOptions();
         it('auto adjust off', function() {
+            let sensitivity = yeah.getSensitivity();
             yeah.setIsAutoAdjustSensitivity(false);
-            let isUpdated = yeah.adjustSensitivity(10000);
-            assert(!isUpdated);
+            let newSensitivity = yeah.calcAdjustedSensitivity(10000, options);
+            assert.equal(newSensitivity, sensitivity);
         });
 
         it('auto adjust on: corner=401 x sensitivity=0 ', function() {
             yeah.setIsAutoAdjustSensitivity(true);
             yeah.setSensitivity(0);
-            let isUpdated = yeah.adjustSensitivity(401);
-            assert(!isUpdated);
-            assert.equal(yeah.getSensitivity(), 0);
+            let newSensitivity = yeah.calcAdjustedSensitivity(401, options);
+            assert.equal(newSensitivity, 0);
         });
 
         it('auto adjust on: corner=401 x sensitivity=1 ', function() {
             yeah.setIsAutoAdjustSensitivity(true);
             yeah.setSensitivity(1);
-            let isUpdated = yeah.adjustSensitivity(401);
-            assert(isUpdated);
-            assert.equal(yeah.getSensitivity(), 0);
-        });
-
-        it('auto adjust on: corner=400 x sensitivity=100 ', function() {
-            yeah.setIsAutoAdjustSensitivity(true);
-            yeah.setSensitivity(100);
-            let isUpdated = yeah.adjustSensitivity(400);
-            assert(!isUpdated);
-            assert.equal(yeah.getSensitivity(), 100);
+            let newSensitivity = yeah.calcAdjustedSensitivity(401, options);
+            assert.equal(newSensitivity, 0);
         });
 
         it('auto adjust on: corner=250 x sensitivity=0 ', function() {
             yeah.setIsAutoAdjustSensitivity(true);
             yeah.setSensitivity(0);
-            let isUpdated = yeah.adjustSensitivity(250);
-            assert(!isUpdated);
-            assert.equal(yeah.getSensitivity(), 0);
+            let newSensitivity = yeah.calcAdjustedSensitivity(250, options);
+            assert.equal(newSensitivity, 0);
         });
 
         it('auto adjust on: corner=249 x sensitivity=0 ', function() {
             yeah.setIsAutoAdjustSensitivity(true);
             yeah.setSensitivity(0);
-            let isUpdated = yeah.adjustSensitivity(249);
-            assert(isUpdated);
-            assert.equal(yeah.getSensitivity(), 2);
+            let newSensitivity = yeah.calcAdjustedSensitivity(249, options);
+            assert.equal(newSensitivity, 2);
+        });
+
+        it('auto adjust on: corner=400 x sensitivity=100 ', function() {
+            yeah.setIsAutoAdjustSensitivity(true);
+            yeah.setSensitivity(100);
+            let newSensitivity = yeah.calcAdjustedSensitivity(400, options);
+            assert.equal(newSensitivity, 100);
+        });
+
+        it('auto adjust on: corner=401 x sensitivity=100 ', function() {
+            yeah.setIsAutoAdjustSensitivity(true);
+            yeah.setSensitivity(100);
+            let newSensitivity = yeah.calcAdjustedSensitivity(401, options);
+            assert.equal(newSensitivity, 98);
+        });
+
+        it('auto adjust on: corner=0 x sensitivity=100 ', function() {
+            yeah.setIsAutoAdjustSensitivity(true);
+            yeah.setSensitivity(100);
+            let newSensitivity = yeah.calcAdjustedSensitivity(0, options);
+            assert.equal(newSensitivity, 100);
         });
 
     });

@@ -41,32 +41,26 @@
         isAutoAdjustSensitivity: true,
         isShowCapturePanel:      false,
 
-        captureCamera: function() {
+        'sample:WebCamera': function() {
             videoElm.controls = false;
             turnOnVideo();
-            if (device === 'sp') {
-                gui.closed = true;
-            }
+            closeDatGUIContorlPanel();
         },
-        captureDanceMovie: function() {
+        'sample:DanceMovie': function() {
             videoElm.controls = true;
             yeah.playVideo('./assets/media/kazuhiro.mp4');
             if (myStream) {
                 myStream.getTracks()[0].stop();
             }
-            if (device === 'sp') {
-                gui.closed = true;
-            }
+            closeDatGUIContorlPanel();
         },
-        captureGameMovie: function() {
+        'sample:GameMovie': function() {
             videoElm.controls = true;
             yeah.playVideo('./assets/media/umehara.mp4');
             if (myStream) {
                 myStream.getTracks()[0].stop();
             }
-            if (device === 'sp') {
-                gui.closed = true;
-            }
+            closeDatGUIContorlPanel();
         }
     };
 
@@ -168,6 +162,9 @@
         videoElm = document.getElementById('video');
         yeah.setVideoElement(videoElm);
         yeah.setOptions(datParam);
+        if (device === 'sp') {
+            yeah.setMarkerSize(3);
+        }
         yeah.startCaptureVideo(yeahCallback);
         turnOnVideo();
     }
@@ -184,9 +181,8 @@
             y: (data.yeah === null) ? null : round(data.yeah, 2)
         });
         chart.render();
-
-        if (data.isSensitivityAdjusted) {
-            datParam.sensitivity = yeah.getSensitivity();
+        if (data.sensitivity && (datParam.sensitivity !== data.sensitivity)) {
+            datParam.sensitivity = data.sensitivity;
             updateDatParamManually();
         }
     }
@@ -197,6 +193,8 @@
                 myStream = stream;
                 yeah.playVideo(URL.createObjectURL(myStream), 2000);
             }, function() {});
+        } else {
+            alert("This device doesn't support web camera. Please try sample movies listed on control panel above.")
         }
     }
 
@@ -290,9 +288,9 @@
         gui.add(datParam, 'isShowCapturePanel').onChange(function() {
             yeah.setIsShowCapturePanel(datParam.isShowCapturePanel);
         });
-        gui.add(datParam, 'captureCamera');
-        gui.add(datParam, 'captureDanceMovie');
-        gui.add(datParam, 'captureGameMovie');
+        gui.add(datParam, 'sample:WebCamera');
+        gui.add(datParam, 'sample:DanceMovie');
+        gui.add(datParam, 'sample:GameMovie');
     }
 
     /* utilities */
@@ -334,6 +332,14 @@
 
     function round(base, digit) {
         return Math.round(base * Math.pow(10, digit)) / Math.pow(10, digit);
+    }
+
+    function closeDatGUIContorlPanel() {
+        if (device === 'sp') {
+            setTimeout(function() {
+                gui.closed = true;
+            }, 300);
+        }
     }
 
 })((this || 0).self || global);
