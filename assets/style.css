@@ -245,6 +245,8 @@ p {
     #video {
         min-width: 90vw;
         max-width: 90vw;
+        height: auto;
+        min-height: auto;
     }
     #chart {
         width: 90%;
