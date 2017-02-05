@@ -13,9 +13,9 @@
     /* params and elements related to yeah.js */
     let myStream, videoElm, gui;
     let videoConstraints = {
-        width:      { min: 640, ideal: 1280, max: 1920 },
-        height:     { min: 400, ideal: 720, max: 1080 },
         facingMode: 'user',
+        width:      { min: 350, ideal: 1280, max: 1920 },
+        height:     { min: 200, ideal: 720, max: 1080 },
         frameRate:  { ideal: 10, max: 15 }
     };
     let datParam = {
@@ -242,6 +242,9 @@
 
     function initDatGUI() {
         gui = new dat.GUI();
+        if (device === 'sp') {
+            gui.closed = true;
+        }
         gui.add(
             datParam,
             'captureInterval',
@@ -305,5 +308,16 @@
     function round(base, digit) {
         return Math.round(base * Math.pow(10, digit)) / Math.pow(10, digit);
     }
+
+    var ua = navigator.userAgent.toLowerCase();
+    var device = (function(){
+        if(ua.indexOf('iphone') > 0 || ua.indexOf('ipod') > 0 || (ua.indexOf('android') > 0 && ua.indexOf('mobile')) > 0){
+            return 'sp';
+        }else if(ua.indexOf('ipad') > 0 || ua.indexOf('android') > 0){
+            return 'tab';
+        }else{
+            return 'other';
+        }
+    })();
 
 })((this || 0).self || global);

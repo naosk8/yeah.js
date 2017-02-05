@@ -18,6 +18,10 @@ body {
     right: 0;
     overflow: hidden;
 }
+p {
+    font-size: 1.5em;
+    margin: 20px 30px;
+}
 .demo-container {
     position:relative;
     text-align: center;
@@ -38,13 +42,18 @@ body {
     position: absolute;
     opacity: 1;
     width: auto;
-    height: 400px;
+    height: auto;
+    min-width: 50vw;
+    max-width: 70vw;
     will-change: opacity;
 }
 #animation-layer {
     position: absolute;
     top: 0;
+    bottom: 0;
     left: 0;
+    right: 0;
+    overflow: hidden;
 }
 .inner-magic-layer {
     position: absolute;
@@ -101,10 +110,6 @@ body {
     z-index: 1000;
 }
 
-p {
-    font-size: 1.5em;
-    margin: 20px 30px;
-}
 .demo-title {
     color: white;
     position: relative;
@@ -231,5 +236,25 @@ p {
         -moz-transform-origin: 50% 50%;
         -moz-transform: scale(1.5, 1.5);
         -moz-filter: blur(2px);
+    }
+}
+
+/* for smartphone or tablet */
+@media (max-width: 1020px) {
+    p {
+        font-size: 2vh;
+        margin: 20px 0px 0px;
+    }
+    #video {
+        min-width: 90vw;
+        max-width: 90vw;
+    }
+    #chart {
+        width: 90%;
+        height: 30%;
+        position: fixed;
+        bottom: 50px;
+        left: 5%;
+        margin-left: 0px;
     }
 }
