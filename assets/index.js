@@ -48,12 +48,16 @@
         captureDanceMovie: function() {
             videoElm.controls = true;
             yeah.playVideo('./assets/media/kazuhiro.mp4');
-            myStream.getTracks()[0].stop();
+            if (myStream) {
+                myStream.getTracks()[0].stop();
+            }
         },
         captureGameMovie: function() {
             videoElm.controls = true;
             yeah.playVideo('./assets/media/umehara.mp4');
-            myStream.getTracks()[0].stop();
+            if (myStream) {
+                myStream.getTracks()[0].stop();
+            }
         }
     };
 
