@@ -44,6 +44,9 @@
         captureCamera: function() {
             videoElm.controls = false;
             turnOnVideo();
+            if (device === 'sp') {
+                gui.closed = true;
+            }
         },
         captureDanceMovie: function() {
             videoElm.controls = true;
@@ -51,12 +54,18 @@
             if (myStream) {
                 myStream.getTracks()[0].stop();
             }
+            if (device === 'sp') {
+                gui.closed = true;
+            }
         },
         captureGameMovie: function() {
             videoElm.controls = true;
             yeah.playVideo('./assets/media/umehara.mp4');
             if (myStream) {
                 myStream.getTracks()[0].stop();
+            }
+            if (device === 'sp') {
+                gui.closed = true;
             }
         }
     };
