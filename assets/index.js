@@ -1,5 +1,17 @@
 'use strict';
 (function(global, undefined) {
+    let ua = navigator.userAgent.toLowerCase();
+    let device = (() => {
+        if(ua.indexOf('iphone') > 0 || ua.indexOf('ipod') > 0 || (ua.indexOf('android') > 0 && ua.indexOf('mobile')) > 0){
+            return 'sp';
+        }else if(ua.indexOf('ipad') > 0 || ua.indexOf('android') > 0){
+            return 'tab';
+        }else{
+            return 'other';
+        }
+    })();
+    let isIOS = (ua.search(/iphone|ipad|ipod/) > -1);
+
     let CanvasJS = global.CanvasJS || {};
     let dat = global.dat || {};
     let deviceHeight, deviceWidth,
@@ -143,8 +155,8 @@
         videoElm = document.getElementById('video');
         yeah.setVideoElement(videoElm);
         yeah.setOptions(datParam);
-        turnOnVideo();
         yeah.startCaptureVideo(yeahCallback);
+        turnOnVideo();
     }
 
     function yeahCallback(data) {
@@ -167,10 +179,12 @@
     }
 
     function turnOnVideo() {
-        navigator.getUserMedia({ audio: false, video: videoConstraints }, function(stream) {
-            myStream = stream;
-            yeah.playVideo(URL.createObjectURL(myStream), 2000);
-        }, function() {});
+        if (navigator.getUserMedia) {
+            navigator.getUserMedia({ audio: false, video: videoConstraints }, function(stream) {
+                myStream = stream;
+                yeah.playVideo(URL.createObjectURL(myStream), 2000);
+            }, function() {});
+        }
     }
 
     function addEffect(value) {
@@ -308,16 +322,5 @@
     function round(base, digit) {
         return Math.round(base * Math.pow(10, digit)) / Math.pow(10, digit);
     }
-
-    var ua = navigator.userAgent.toLowerCase();
-    var device = (function(){
-        if(ua.indexOf('iphone') > 0 || ua.indexOf('ipod') > 0 || (ua.indexOf('android') > 0 && ua.indexOf('mobile')) > 0){
-            return 'sp';
-        }else if(ua.indexOf('ipad') > 0 || ua.indexOf('android') > 0){
-            return 'tab';
-        }else{
-            return 'other';
-        }
-    })();
 
 })((this || 0).self || global);
