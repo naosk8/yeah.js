@@ -1,5 +1,5 @@
 {
-  "name": "yeah.js",
+  "name": "yeah-js",
   "homepage": "https://github.com/naosk8/yeah.js",
   "authors": [
     "naosk8 <keep.naoself.real@gmail.com>"
@@ -7,13 +7,11 @@
   "description": "A javascript library to convert audience excitement(movie) into digital output.",
   "main": "",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
-    "test",
-    "tests"
+    "bower_components"
   ],
   "dependencies": {
     "tracking": "^1.1.3",
