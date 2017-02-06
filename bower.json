@@ -7,7 +7,7 @@
   "description": "A javascript library to convert audience excitement(movie) into digital output.",
   "main": "",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
