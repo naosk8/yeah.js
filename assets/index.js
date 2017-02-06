@@ -165,8 +165,8 @@
         if (device === 'sp') {
             yeah.setMarkerSize(3);
         }
-        yeah.startCaptureVideo(yeahCallback);
         turnOnVideo();
+        yeah.startCaptureVideo(yeahCallback);
     }
 
     function yeahCallback(data) {

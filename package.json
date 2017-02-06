@@ -2,7 +2,6 @@
   "name": "yeah.js",
   "version": "1.0.0",
   "description": "A javascript library to convert video input to its excitement score.",
-  "main": "index.js",
   "scripts": {
     "test": "npm run lint && npm run cover",
     "lint": "eslint ./lib/*.js",

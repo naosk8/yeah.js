@@ -119,6 +119,12 @@ video::-webkit-media-controls-panel {
 .dg.ac {
     z-index: 1000;
 }
+.dg .property-name {
+    width: 60%;
+}
+.dg .c {
+    width: 40%;
+}
 
 .demo-title {
     color: white;
