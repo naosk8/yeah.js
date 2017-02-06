@@ -14,7 +14,7 @@
     "url": "git+https://github.com/naosk8/yeah.js.git"
   },
   "author": "Nao Ito",
-  "license": "BSD-2-Clause",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/naosk8/yeah.js/issues"
   },
