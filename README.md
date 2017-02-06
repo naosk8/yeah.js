@@ -1,9 +1,11 @@
 # yeah.js
-A javascript library to convert audience excitement(movie) into digital output.  
+A javascript library to convert video input into its excitement score.
    
 [![CircleCI](https://circleci.com/gh/naosk8/yeah.js/tree/master.svg?style=shield)](https://circleci.com/gh/naosk8/yeah.js/tree/master)
-[![codecov](https://codecov.io/gh/naosk8/yeah.js/branch/master/graph/badge.svg)](https://codecov.io/gh/naosk8/yeah.js)
-  
+[![Codecov](https://codecov.io/gh/naosk8/yeah.js/branch/master/graph/badge.svg)](https://codecov.io/gh/naosk8/yeah.js)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Bower version](https://badge.fury.io/bo/yeah-js.svg)](https://badge.fury.io/bo/yeah-js)
+
 ## Demo page
 [A demo page on Github](https://naosk8.github.io/yeah.js "A demo page on Github")
   
@@ -23,7 +25,7 @@ In HTML
   <script>
     function main() {
       videoElm = document.getElementById('targetVideo');
-      // 1. set a video element to be watched.
+      // 1. Set a video element to be watched.
       yeah.setVideoElement(videoElm);
 
       // 2. Set options only if you want to arrange them.
@@ -79,6 +81,7 @@ require(['path/to/yeah'], function(yeah) {
 [API Documents written in YUIDoc](https://naosk8.github.io/yeah.js/docs/classes/Yeah.html "Documents written in YUIDoc")
 
 ## Reference for integration
+### Tools
 | Purpose     | Tool       | Command       | Setting      |
 |:------------|:-----------|:--------------|:-------------|
 | code check  | [eslint](http://eslint.org/)    | npm run lint  | .eslintrc    |
@@ -89,7 +92,19 @@ require(['path/to/yeah'], function(yeah) {
 | CI          | [Circle.io](https://circleci.com/)  |               | circle.yml   |
 | API doc     | [YUIDoc](http://yui.github.io/yuidoc/)     | yuidoc        | yuidoc.json  |
   
-  
+### For developers
+All steps in this section assume npm and bower installed.
+```
+# Install yuildocjs
+npm install -g yuidocjs
+
+# Install devDependencies of npm modules
+npm install
+
+# Install devDependencies of bower components
+bower install
+```
+
 ## Library dependency
 [tracking.js](https://trackingjs.com/) ([github](https://github.com/eduardolundgren/tracking.js))  
   
