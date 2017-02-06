@@ -32,8 +32,9 @@ video::-webkit-media-controls-enclosure {
     overflow: hidden;
 }
 video::-webkit-media-controls-panel {
-    width: calc(100% + 48px);
+    width: calc(100% + 30px);
 }
+
 .demo-container {
     position:relative;
     text-align: center;
