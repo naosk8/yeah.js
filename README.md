@@ -10,7 +10,7 @@ A javascript library to convert audience excitement(movie) into digital output.
 ## Get started
 ### 1 - install  
 ```
-bower install yeahjs
+bower install yeah-js
 ```
   
 ### 2 - Usage  <br>
