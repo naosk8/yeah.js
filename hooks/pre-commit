@@ -1,0 +1,28 @@
+#!/bin/sh
+COLOR_RED="\033[0;31m"
+COLOR_GREEN="\033[0;32m"
+COLOR_OFF="\033[m"
+
+EXIT_CODE_SUCCESS=0
+EXIT_CODE_FAILURE=1
+
+# run eslint defined in package.json
+if ! npm run lint; then
+    echo "${COLOR_RED}✖ pre_commit hook failed at 'npm run lint'${COLOR_OFF}"
+    exit ${EXIT_CODE_FAILURE}
+fi
+
+# run unit test and make coverage report defined in package.json
+if ! npm run cover; then
+    echo "${COLOR_RED}✖ pre_commit hook failed at 'npm run cover'${COLOR_OFF}"
+    exit ${EXIT_CODE_FAILURE}
+fi
+
+# run yuidoc creation defined in yuidoc.json
+if ! yuidoc; then
+    echo "${COLOR_RED}✖ pre_commit hook failed at 'yuidoc'${COLOR_OFF}"
+    exit ${EXIT_CODE_FAILURE}
+fi
+
+echo "${COLOR_GREEN}✓ pre_commit hook succeeded${COLOR_OFF}"
+exit ${EXIT_CODE_SUCCESS}

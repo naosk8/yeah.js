@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "A javascript library to convert video input to its excitement score.",
   "scripts": {
-    "test": "npm run lint && npm run cover",
+    "test": "npm run lint && npm run cover && npm run report",
     "lint": "eslint ./lib/*.js",
-    "cover": "NODE_ENV=test istanbul cover _mocha --report text --report html --report lcovonly -- -R spec && codecov -t ${CODECOV_TOKEN}",
+    "cover": "NODE_ENV=test istanbul cover _mocha --report text --report html --report lcovonly -- -R spec",
+    "report": "codecov -t ${CODECOV_TOKEN}",
     "mocha": "NODE_ENV=test mocha"
   },
   "repository": {

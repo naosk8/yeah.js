@@ -103,6 +103,9 @@ npm install
 
 # Install devDependencies of bower components
 bower install
+
+# Create symlink for pre hook
+ln -s -f ./hooks/pre-commit ./.git/hooks/pre-commit
 ```
 
 ## Library dependency
