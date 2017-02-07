@@ -105,7 +105,7 @@ npm install
 bower install
 
 # Create symlink for pre hook
-ln -s -f ./hooks/pre-commit ./.git/hooks/pre-commit
+ln -s -f ../../hooks/pre-commit .git/hooks/pre-commit
 ```
 
 ## Library dependency
