@@ -87,8 +87,8 @@ require(['path/to/yeah'], function(yeah) {
 | code check  | [eslint](http://eslint.org/)    | npm run lint  | .eslintrc    |
 | unit test   | [mocha](https://mochajs.org/)      | mocha         |              |
 | test report | [istanbul](https://istanbul.js.org/)   | npm run cover |              |
+| test report | [Codecov.io](https://codecov.io/) | npm run report |              |
 | lint & test |            | npm test      | package.json |
-| test report | [Codecov.io](https://codecov.io/) |               |              |
 | CI          | [Circle.io](https://circleci.com/)  |               | circle.yml   |
 | API doc     | [YUIDoc](http://yui.github.io/yuidoc/)     | yuidoc        | yuidoc.json  |
   
