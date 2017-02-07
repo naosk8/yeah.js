@@ -92,7 +92,7 @@ require(['path/to/yeah'], function(yeah) {
 | CI          | [Circle.io](https://circleci.com/)  |               | circle.yml   |
 | API doc     | [YUIDoc](http://yui.github.io/yuidoc/)     | yuidoc        | yuidoc.json  |
   
-### For developers
+### For contributors
 All steps in this section assume npm and bower installed.
 ```
 # Install yuildocjs
